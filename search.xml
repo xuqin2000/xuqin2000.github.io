@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/10/23/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>踩坑日常——博客搭建(Hexo+node.js)</title>
+    <url>/2020/10/23/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA(Hexo+node.js)/</url>
+    <content><![CDATA[<p>搭建一个Hexo静态博客所需要安装的有 Node.js和Hexo以及git环境。上传的(免费)服务器可以选择github、gitee、coding等。我选择的是<strong>gitee</strong>。我的电脑环境是win10，所以安装git之后，在git bash里面可以用Linux命令。安装的步骤教程网上有很多，这里我就不赘述。主要记录一下配置过程中所遇到的几处<strong>问题</strong>以及我解决的方案(不一定是<strong>最优解</strong>)。</p>
+<hr>
+<h4 id="一：标签about里面的内容写出来不能识别"><a href="#一：标签about里面的内容写出来不能识别" class="headerlink" title="一：标签about里面的内容写出来不能识别"></a>一：标签about里面的内容写出来不能识别</h4><p>在按照网上大部分配置首页，分类，标签这种页面的步骤配置之后，</p>
+<p>我发现about这一栏我出现了问题。于是去找关于文章写作的相关命令。</p>
+<p>排查错误之后，发现是</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">title: about</span><br><span class="line">type: about</span><br><span class="line">layout: &quot;about&quot;</span><br></pre></td></tr></table></figure>
+<p>这一部分的错误。原因是yml的格式，<strong>需要在：之后打上空格。</strong></p>
+<p>所以，不论是配置类，如<strong>_config.yml</strong>文件还是在写博客的<strong>md</strong>文件中，冒号之后需要配置的记得来一个空格。</p>
+<hr>
+<h4 id="二、本地文件不能与gitee上同步"><a href="#二、本地文件不能与gitee上同步" class="headerlink" title="二、本地文件不能与gitee上同步"></a>二、本地文件不能与gitee上同步</h4><p> 最大的问题就是这个了。为了解决这个问题花了两天时间…</p>
+<p>一开始配置好的时候就一股脑的上传了，然后改主题，写了测试博客。在本地运行<strong>hexo c (清除缓存)**和</strong>hexo g(生成静态文件)** 以及 <strong>hexo s(本地运行)</strong></p>
+<p>之后，在本地输入<strong>localhost:4000</strong>(默认此端口)之后就可以进行博客的预览了。这几步进行下来比较顺利。可是在部署在远程服务器这一步出现了问题。</p>
+<p>我根据主题改成的自己的博客发布上去之后，访问到的还是之前的主题。也就是说，我的页面并没有更改。查找了一些相关博文以及问答之后，我进行了重新部署。具体是根据这篇 <a href="https://blog.csdn.net/GAI159/article/details/105128186">https://blog.csdn.net/GAI159/article/details/105128186</a>对于分支进行了修改。</p>
+<p>一般情况下，在git中使用命令hexo c &amp;&amp; hexo g - d发布上去就行了。但是我试了很多也找了好多博文跟着做也不行。</p>
+<p>最后解决方案：更新博客或者删除之后，hexo g-d(这样上传到gitee的master分支上)，然后再在gitee pages服务那里，点击更新重新部署。</p>
+<p>这样很麻烦，目前的问题就是发布在gitee上是有更新的，但是网站不能更新。暂时的方法只有这样了。</p>
+<hr>
+<h4 id="三、使用个人域名"><a href="#三、使用个人域名" class="headerlink" title="三、使用个人域名"></a>三、使用个人域名</h4><p><a href="https://xq2000.gitee.io/">https://xq2000.gitee.io</a> 这样的名字不太好听(gitee提供的免费服务器)。所以我决定申请一个域名。这里又是一个摸石头过河的过程……</p>
+<p>首先，我所知道的平台就是github、gitee以及coding(自建服务器不考虑)。本来我的代码仓库放在gitee上的，国内毕竟访问什么的不受限制。所以当我兴冲冲的申请好域名之后……gitee上面居然要升级Gitee Page Pro才能加入个人域名(90多一年呢……)于是我又去coding。在coding上，我们发布博客除了配置个人域名，添加域名解析记录以及申请SSL证书以外，还需要开启CDN功能。</p>
+<h5 id="CDN功能"><a href="#CDN功能" class="headerlink" title="CDN功能"></a>CDN功能</h5><p>CDN功能开启有相应的计费说明和文档(没错，需要付费。不过有送的128G流量包)。域名接入 CDN 后，系统会自动分配一个以 <code>.cdn.dnsv1.com</code> 为后缀的 CNAME 域名，可在 CDN 控制台 <a href="https://console.cloud.tencent.com/cdn/domains">域名管理页</a> 查看。CNAME 域名不能直接访问，需要在域名服务提供商处完成 CNAME 配置。</p>
+<h5 id="自定义域名添加"><a href="#自定义域名添加" class="headerlink" title="自定义域名添加"></a>自定义域名添加</h5><p>CDN开启后，就可以加入自定义域名了。CDN的服务还没有开启，需要接入域名。可以先配置域名，之后接入CDN。</p>
+<p>输入你的域名，绑定即可。添加好个人域名之后，会自动去申请SSL证书。</p>
+<p><img src="https://s1.ax1x.com/2020/10/02/0ldgF1.png" alt="0ldgF1.png"></p>
+<hr>
+<h5 id="添加域名解析记录"><a href="#添加域名解析记录" class="headerlink" title="添加域名解析记录"></a>添加域名解析记录</h5><p>域名添加好之后，需要去为域名添加CNAME记录。<img src="https://s1.ax1x.com/2020/10/02/0ld9G6.png" alt="0ld9G6.png"></p>
+<p><img src="https://s1.ax1x.com/2020/10/02/0ldXSf.png" alt="0ldXSf.png"></p>
+<p>这里的记录值(也就是CNAME指向)是需要复制到CNAME记录中去的。</p>
+<p>显示审核中就是你需要去添加的CNAME记录。</p>
+<p>去到对应的域名托管处进行添加。我用的是腾讯云。</p>
+<p><img src="https://s1.ax1x.com/2020/10/02/0ldGZj.png" alt="0ldGZj.png"></p>
+<p>主机记录填写之前填写的域名前缀（例如：blog.okok.host 填写 blog），也可以填上**@<strong>。记录类型填写 **CNAME</strong>，记录值填写域名列表中的 CNAME 指向(也是上面画红线的记录值)（例如：niqux.top.cdn.dnv1.com）</p>
+<h5 id="SSL证书"><a href="#SSL证书" class="headerlink" title="SSL证书"></a>SSL证书</h5><p>配置好之后，如果你的域名服务状态和DNS状态显示不正常，那么就需要申请SSL证书。(在配置个人域名那一步的时候，会自动去申请SSL证书)。这里显示待验证状态的，就是刚才申请的域名所对应的SSL证书了。我是在腾讯云上申请的域名，所以相应的SSL证书是在腾讯云上发布的。一般一个工作日就可以了。</p>
+<p><img src="https://s1.ax1x.com/2020/10/02/0ldRW6.png" alt="0ldRW6.png"></p>
+<hr>
+<p>所有都配置好没有错误之后，重新部署你的项目即可。</p>
+<p>详细可在coding帮助文档查找：<a href="https://help.coding.net/docs/cd/static-website-v2.html?_ga=2.68172817.1030326411.1601571268-1149512744.1601571268#%E6%B7%BB%E5%8A%A0%E8%A7%A3%E6%9E%90%E8%AE%B0%E5%BD%95">https://help.coding.net/docs/cd/static-website-v2.html?_ga=2.68172817.1030326411.1601571268-1149512744.1601571268#%E6%B7%BB%E5%8A%A0%E8%A7%A3%E6%9E%90%E8%AE%B0%E5%BD%95</a></p>
+]]></content>
+      <categories>
+        <category>前端学习</category>
+      </categories>
+      <tags>
+        <tag>踩坑日常</tag>
+        <tag>技术</tag>
+      </tags>
+  </entry>
+</search>
