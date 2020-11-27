@@ -48,4 +48,203 @@
         <tag>技术</tag>
       </tags>
   </entry>
+  <entry>
+    <title></title>
+    <url>/2020/11/27/mysql%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">title: 《mysql必知必会》学习记录</span><br><span class="line">tags: [mysql,技术]</span><br><span class="line">categories: 数据库</span><br><span class="line">description: 看《mysql必知必会》过程中，记录一些MySQL简单语句。</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="1-了解数据库和表"><a href="#1-了解数据库和表" class="headerlink" title="1. 了解数据库和表"></a>1. 了解数据库和表</h4><ul>
+<li>连接数据库：<code>mysql -u root -p </code>（使用root权限用户登录数据库）</li>
+<li>查看数据库：<code>show databases;</code> 或者<code>show databases\g </code> （必须用;或\g结束，仅按enter不执行命令）</li>
+<li>选择某一数据库：<code>use case01; </code> (选择case01数据库)</li>
+<li>查看某一数据库内的列表：<code>show tables;</code></li>
+<li>显示表列：两种方式<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">显示users表的表列:</span><br><span class="line">1.show columns from users; </span><br><span class="line">2.describe users;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">小结：可以使用 help show; 查看允许的show语句。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="2-检索数据-select语句"><a href="#2-检索数据-select语句" class="headerlink" title="2. 检索数据(select语句)"></a>2. 检索数据(select语句)</h4><ul>
+<li><p><code>select *  (*被称为通配符)</code>：查到所有的列，<strong>尽量不用，降低检索效率。</strong></p>
+</li>
+<li><p><code>select distinct</code>：只返回不同的值</p>
+</li>
+<li><p><code>select...from... limit 5</code>: limit子句，返回不多于5行</p>
+</li>
+<li><p><code>select...from... limit 5,3</code>: limit5,3指示返回从第5行开始的3行数据。第一位是<strong>开始位置</strong>，第二位是<strong>要检索行数</strong>。</p>
+</li>
+<li><p><code>select...from... limit 4 offset 3</code>:从第3行开始取4行。等价于 limit 3,4.</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">注意：检索出来的第一行为0而不是行1。limit 1,1 将检索出第二行而不是第一行.</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>select user.name from user</code>:完全限定的名字来引用列</li>
+<li><code>select user.name from case01.user</code>：完全限定的表名来引用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">小结：select检索单个或多个表列及所有表列。limit可以限制查询行数。</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-排序检索-order-by子句"><a href="#3-排序检索-order-by子句" class="headerlink" title="3. 排序检索(order by子句)"></a>3. 排序检索(order by子句)</h4><ul>
+<li><p><code>select qq from user order by qq;</code>：对qq列以qq列字母排序大小进行排序</p>
+</li>
+<li><p>order by子句也可以用未选择的列作为排序标准。</p>
+<p><code>select qq from user order by email;</code>：对qq列以email列(未选择的列)字母排序大小进行排序</p>
+</li>
+<li><p>对多个列排序 <code>SELECT * FROM user order by gender,age;</code>:对查询结果先按性别排序，再按年龄排序。</p>
+</li>
+<li><p>倒序排序 desc关键字(在order by子句之后)</p>
+<p><code>SELECT * FROM user order by age desc;</code>: 倒序查找年龄(最大的排在最前面)</p>
+<p><code>SELECT * FROM user order by age desc,name;</code>:以降序排序年龄(最大的在前面)，然后再对名字(升序)排序</p>
+<p><code>SELECT * FROM user order by age DESC,name DESC;</code>：以降序排序年龄(最大的在前面)，然后再对名字(降序)排序</p>
+</li>
+</ul>
+<h4 id="4-搜索符合条件数据-where-子句"><a href="#4-搜索符合条件数据-where-子句" class="headerlink" title="4.  搜索符合条件数据(where 子句)"></a>4.  搜索符合条件数据(where 子句)</h4><ul>
+<li><p>where 子句操作符</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x3D;、&lt;、&gt;、&lt;&#x3D;、&gt;&#x3D; 字面意思</span><br><span class="line">&lt;&gt;    不等于</span><br><span class="line">!&#x3D;    不等于</span><br><span class="line">between 在指定的两个值之间</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查单个值<br><code>SELECT name,age FROM user where name=&#39;QQx&#39;;</code>:查找name为qqx的user语句。(执行匹配时不区分大小写，所以QQx能与qqx匹配)</p>
+</li>
+<li><p>不匹配检查<br><code>SELECT name,age FROM user where age &lt;&gt; 22 ;</code>: 查询年龄不为22的user语句。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">注意：何时使用引号：单引号用来限定字符串。所以若是查询串类型的值，需要加上引号，数值类型则不需要。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>范围值检查(数值类型)<br><code>SELECT name,age FROM user where age BETWEEN 22 and 28</code>:查询年龄在22~28之间的user。</p>
+</li>
+<li><p>空值检查<br><code>SELECT name,age FROM user WHERE name IS NULL</code>：检查name为null值的列</p>
+</li>
+</ul>
+<h4 id="5-数据过滤-where子句中-NOT与IN操作符"><a href="#5-数据过滤-where子句中-NOT与IN操作符" class="headerlink" title="5. 数据过滤(where子句中 NOT与IN操作符)"></a>5. 数据过滤(where子句中 NOT与IN操作符)</h4><ul>
+<li><p>组合where子句(and)<br><code>SELECT name,age,gender FROM user WHERE name =&#39;赵六&#39; AND age&gt;18</code>：查询name为赵六并且年龄18岁以上的user。添加and可以组合多个过滤条件。用来检索满足所有给定条件的行。</p>
+</li>
+<li><p>组合where子句(or)<br><code>SELECT name,age,gender FROM user WHERE name =&#39;赵六&#39; or name=&#39;田甜&#39;</code>：查询name为赵六或者name为田甜的user。添加or用来检索满足匹配任一条件的行。</p>
+</li>
+<li><p>or与and计算次序<br><code>SELECT name,age,gender FROM user WHERE name =&#39;赵六&#39; or name=&#39;田甜&#39; AND age&gt;19</code>查询name为赵六 或者 name为田甜并且年龄18岁以上的user。<br><code>SELECT name,age,gender FROM user WHERE (name =&#39;赵六&#39; or name=&#39;田甜&#39; )AND age&gt;19</code> 查询name为赵六或者 name为田甜  并且年龄18岁都在以上的user。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">注意：sql与多数语言一样，优先处理and(优先级 &amp;&amp;&gt;||)。所以在同时使用or、and操作符时，应当加上括号，消除歧义。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>IN操作符<br>  in操作符可以完成or相同功能，即用来指定要匹配值的清单的关键字时，功能相当。<br><code>SELECT id, name,age,gender FROM user WHERE name in (&#39;qqx&#39;,&#39;赵六&#39;,&#39;田甜&#39;)</code> :查询name在 (  ) 范围内的user。</p>
+</li>
+<li><p>not操作符<br><code>SELECT id, name,age,gender FROM user WHERE name NOT IN (&#39;qqx&#39;,&#39;赵六&#39;,&#39;田甜&#39;)</code>:查询name不在 (  ) 范围内的user。</p>
+</li>
+</ul>
+<h4 id="6-通配符过滤-like操作符"><a href="#6-通配符过滤-like操作符" class="headerlink" title="6. 通配符过滤(like操作符)"></a>6. 通配符过滤(like操作符)</h4><ul>
+<li><p>百分号(%)通配符：任何字符出现任意次数<br><code>SELECT id, name,age,gender FROM user WHERE name LIKE &#39;赵%&#39;</code>：查找name中以’赵’开头的词。(搜索可以不区分大小写)<br><code>SELECT id, name,qq FROM user WHERE qq LIKE &#39;%13%&#39;</code>：查找qq中包含13文本的值的所有user行。<br><code>SELECT id, name,qq FROM user WHERE qq LIKE &#39;1%3&#39;</code>查找qq中以1开头，3结尾的文本的值 的所有user行。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">注意：like不能匹配值为null的行。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下划线( _ ）通配符：只能匹配一个字符<br><code>SELECT id, name FROM user WHERE name LIKE &#39;_六&#39;</code>：查找缺失第一个字符且第二个字符为六的user行<br><code>SELECT id, nameFROM user WHERE name LIKE &#39;%_六%&#39; </code></p>
+</li>
+</ul>
+<h4 id="7-正则表达式搜索"><a href="#7-正则表达式搜索" class="headerlink" title="7. 正则表达式搜索"></a>7. 正则表达式搜索</h4><ul>
+<li>简单匹配<br><code>SELECT id, name FROM user WHERE name REGEXP &#39;赵六&#39;</code>:检索含有文本’赵六’的所有user行 (等同于 like ‘%赵六%’)</li>
+</ul>
+<p><code>SELECT id, name FROM user WHERE name REGEXP &#39;.六&#39;</code>: .表示匹配任意一个字符</p>
+<ul>
+<li>进行or匹配<br><code>SELECT id, name FROM user WHERE name REGEXP &#39;赵|刘&#39;</code>：检索name中包含赵或刘文本的user行。|为正则表达式中的OR操作符。也可以给出两个以上的|。如 ‘刘|赵|王’</li>
+</ul>
+<p><code>SELECT id, name FROM user WHERE name REGEXP &#39;[赵刘]六&#39;</code>检索name中赵或刘且包含六的user行。可以理解为’赵|刘’ and 含有’六’。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[赵刘]六 其实是[赵|刘]六的缩写。加上[]是用来定义or语句。如果没有[],则变成了赵|刘六。这会引起歧义，事实上mysql的确会误会。</span><br><span class="line">可以把]之后想象有一个and。即[赵or刘] and 六。这其实就是or与and的计算次序问题。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>匹配范围(数字范围，字符范围等)<br><code>SELECT id, name,qq FROM user WHERE qq REGEXP &#39;[1-5]66&#39;</code> 查找qq中以[1-5]范围内的文本为开头，含有66文本的user行。</p>
+</li>
+<li><p>匹配特殊字符(匹配  . 、 _ 、[]、|等 )<br>  使用\转义字符<br><code>SELECT id, name,qq FROM user WHERE qq REGEXP &#39;\\.&#39;:</code>查询qq列中含有 . 的user行 </p>
+</li>
+<li><p>匹配多个实例 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 	    0个或多个匹配</span><br><span class="line">+		1个或多个匹配(相当于&#123;1,&#125;) 	  </span><br><span class="line">?     	0个或1个匹配(相当于&#123;0,1&#125;)</span><br><span class="line">&#123;n&#125;   	指定数目的匹配</span><br><span class="line">&#123;n,&#125; 	不少于n个数目的匹配</span><br><span class="line">&#123;n,m&#125;	匹配n到m的范围(m不超过255)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><code>SELECT id, name,qq FROM user WHERE name REGEXP &#39;([aq]haa?)&#39;</code>:查找name列中以a或q开头，含有ha或者<code>haa</code>(?使得a可选)的user行</p>
+<ul>
+<li>定位符<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">^ 			文本的开始</span><br><span class="line">$ 			文本的结尾</span><br><span class="line">[[:&lt;:]]		词的开始</span><br><span class="line">[[:&gt;:]]		词的结尾</span><br></pre></td></tr></table></figure>
+<code>SELECT id, name,qq FROM user WHERE name REGEXP &#39;[六福]$&#39;</code>查询name列以六或者福为结尾的user行</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. ^ 有两种用途。[]中否定集合，还可以指串的开始</span><br><span class="line">2. like与regexp的不同在于 like匹配整个串而regexp匹配子串。</span><br><span class="line">若regexp利用 ^开头，$结尾定义表达式，则等价于like。</span><br></pre></td></tr></table></figure>
+<h4 id="8-计算字段"><a href="#8-计算字段" class="headerlink" title="8. 计算字段"></a>8. 计算字段</h4><ul>
+<li><p>拼接字段<br><code>select CONCAT(id,&#39;(&#39;, name,&#39;)&#39;) from user ORDER BY id;</code>：将id与(name)拼接。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql拼接串使用的是concat函数，而其他数据库多数使用+或||实现。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>去除空格(RTrim()（右去除）、LTrim()（左去除）、Trim()（两边去除）)<br><code>select CONCAT(id,&#39;(&#39;, RTrim(name),&#39;)&#39;) from user ORDER BY id;</code> 去除name右边的所有空格后进行拼接</p>
+</li>
+<li><p>AS关键字<br><code>select CONCAT(id,&#39;(&#39;,RTrim(name),&#39;)&#39;) AS id_name from user ORDER BY id;</code> （实际对表没有影响） 返回一个字段为id_name 的字段，放置操作的结果</p>
+</li>
+<li><p>算术运算</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql支持基本算术操作符+-*&#x2F;，圆括号()可以用来区分顺序</span><br></pre></td></tr></table></figure>
+<p><code>select id,quantity,price,quantity*price AS quantity_price from order where id=1000</code> 将quantity * price看做是一个字段。</p>
+</li>
+</ul>
+<h4 id="9-使用函数"><a href="#9-使用函数" class="headerlink" title="9.使用函数"></a>9.使用函数</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">函数没有sql的可移植性强。不同的数据库支持不同的函数，各有差异。</span><br><span class="line">所以用函数时，需写好注释。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>文本处理函数<br><code>select CONCAT(id,&#39;(&#39;,upper(name),&#39;)&#39;) AS id_name from user ORDER BY id</code> 将name转换成大写</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">常见的文本处理函数</span><br><span class="line">Left()			返回串左边的字符</span><br><span class="line">Right()			返回串右边的字符</span><br><span class="line">Lower() 		将串转换成小写</span><br><span class="line">Upper()        		将串转换成大写</span><br><span class="line">LTrim() 		去除串左边的空格</span><br><span class="line">RTrim() 		去除串右边的空格</span><br><span class="line">Length()		返回串的长度</span><br><span class="line">Locate()		找出串的一个子串</span><br><span class="line">Soundex() 		返回串的Soundex值</span><br><span class="line">SubString()  	    返回子串的字符</span><br><span class="line"></span><br><span class="line">其中，soundex是一个将任何文本串转换成描述其语音表示的字母数字模式的算法。</span><br><span class="line">考虑到类似的发音字符和音节，使得能对串进行发音比较而不是字符比较。</span><br></pre></td></tr></table></figure>
+
+<p><code>select id,name from user where soundex(name)=soundex(&#39;李红&#39;);</code>:匹配发音类似于李红的名字</p>
+<ul>
+<li>日期和时间处理函数<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AddDate() 		增加一个日期（天、周等）</span><br><span class="line">AddTime() 		增加一个时间（时、分等）</span><br><span class="line">CurDate()		返回当前日期</span><br><span class="line">CurTime() 	   	     返回当前时间</span><br><span class="line">Date()		  	  返回日期时间的日期部分</span><br><span class="line">DateDiff()	      	 计算两个日期之差</span><br><span class="line">Date_Add()	          高度灵活的日期运算函数</span><br><span class="line">Date_Format()         返回一个格式化的日期或时间串</span><br><span class="line">Day()		        返回一个日期的天数部分</span><br><span class="line">DayofWeek()	 	 对于一个日期，返回对应的星期几</span><br><span class="line">Hour()		        返回一个时间的小时部分</span><br><span class="line">Minute()	  	  返回一个时间的分钟部分</span><br><span class="line">Month()	 	         返回一个日期的月份部分</span><br><span class="line">NoW()	                返回当前日期和时间</span><br><span class="line">Second()   	       	    返回一个时间的秒部分</span><br><span class="line">Time()                	 返回一个日期时间的时间部分</span><br><span class="line">Year() 		  	   返回一个日期的年份部分</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><code>SELECT id,create_time from discuss_post where DATE(create_time)=&#39;2020-04-04&#39;</code> 查询给定日期部分(部分比较列中日期，因为列中可能是yyyy-MM-dd HH:mm:ss格式)</p>
+<p><code>SELECT id,create_time from discuss_post where Year(create_time)=2019 AND Month(create_time)=7</code>:查询2019年七月的记录。</p>
+<ul>
+<li>数值处理函数<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Abs()            	返回一个数的绝对值</span><br><span class="line">Cos()     	 	返回一个角度的余弦</span><br><span class="line">Exp()     	 	返回一个数的指数值</span><br><span class="line">Mod()		返回除操作的余数</span><br><span class="line">Pi()		  返回圆周率</span><br><span class="line">Rand()		 返回一个随机数</span><br><span class="line">Sin()		 返回一个角度的正弦</span><br><span class="line">Sqrt()		  返回一个数的平方根</span><br><span class="line">Tan()		返回一个角度的正切</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="10-聚集函数"><a href="#10-聚集函数" class="headerlink" title="10. 聚集函数"></a>10. 聚集函数</h4><p>我们经常需要汇总数据而不用把它们实际检索出来，为此MySQL提供了专门的函数。使用这些函数，MySQL查询可用于检索数据，以便分析和报表生成。这种类型的检索例子有以下几种。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AVG()		返回某列的平均值</span><br><span class="line">COUNT()		返回某列的行数</span><br><span class="line">MAX()		返回某列的最大值</span><br><span class="line">MIN()		返回某列的最小值</span><br><span class="line">SUM()		返回某列值之和</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>AVG() 求平均值<br><code>SELECT AVG(age) from user</code>:用户的平均年龄<br><code>SELECT AVG(age) from user where name=&#39;赵六&#39;</code>:name为赵六的人的平均年龄</p>
+</li>
+<li><p>COUNT()  计数<br><code>select count(*) from user</code>:对所有行计数，不管有无null值<br><code>select count(email) from user</code>:对特定行计数，null不计数。</p>
+</li>
+<li><p>MAX() 求最大值<br><code>select max(age) from user</code>：查询最大值</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">对非数值数据使用MAX()与MIN()：</span><br><span class="line">虽然MAX() 一般用来找出最大的数值或日期值，但MySQL允许将它用来返回任意列中的最大值，包括返回文本列中的最大值。在用于文本数据时，如果数据按相应的列排序，则MAX（）返回最后一行。</span><br><span class="line">MAX()忽略列值为null的行</span><br><span class="line">MIN()与MAX()用法一样。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>SUM() 求和</p>
+<ul>
+<li>计算指定列值的和：<code>SELECT SUM(age) from user where name=&#39;赵六&#39;</code>:对姓名为赵六的user年龄求和</li>
+<li>合计计算值：<code>select sum(quantity*price) AS total_price from order where id=1000</code>：合计每项物品的价格，得出总价格</li>
+</ul>
+</li>
+<li><p>组合聚集函数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select COUNT(*) as user_nums, </span><br><span class="line">MIN(age) as age_min,</span><br><span class="line">MAX(age) as age_max,</span><br><span class="line">AVG(age) as avg_age</span><br><span class="line">from user;</span><br></pre></td></tr></table></figure>
+<h4 id="11-分组数据"><a href="#11-分组数据" class="headerlink" title="11.分组数据"></a>11.分组数据</h4></li>
+<li><p>group by子句<br><code>select gender,COUNT(*) from user GROUP BY gender</code>:以性别分组</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">使用ROLLUP：</span><br><span class="line">使用with rollup关键字，可以得到每个分组以及每个分组汇总级别(针对每个分组)的值</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>having子句<br>having与where作用类似，语法和where相同。区别是having过滤分组而where过滤行。或者说，where是在分组前进行过滤，而having是在分组后进行过滤。where排除的行不包括在分组中。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select id,count(*) AS num_prods </span><br><span class="line">from products</span><br><span class="line">where price&gt;&#x3D;10</span><br><span class="line">group by id</span><br><span class="line">having count(*) &gt; 2</span><br><span class="line"></span><br><span class="line">where先过滤行，小于10的行数先过滤，不进行分组；然后再进行having分组，统计2以上的分组。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>分组与排序(order by与group by)<ul>
+<li>使用group by时，应加上order by子句。因为group by排序不一定正确。</li>
+<li>group by 如果与聚集函数一起使用列(或表达式)，则必须使用</li>
+<li>group by 只可能使用选择列或表达式列，而且必须使用每个选择列表达式</li>
+</ul>
+</li>
+</ul>
+<h4 id="12-使用子查询"><a href="#12-使用子查询" class="headerlink" title="12. 使用子查询"></a>12. 使用子查询</h4><p>mysql中，子查询是从内向外处理。</p>
+<ul>
+<li><p>利用子查询进行过滤</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT cust_name,cust_contact </span><br><span class="line">FROM customers </span><br><span class="line">WHERE cuSt_id IN(SELECT cuSt_id </span><br><span class="line">				FROM orders </span><br><span class="line">				WHERE order_num IN(SELECT order_num </span><br><span class="line">									FROM orderitems </span><br><span class="line">									WHERE prod_id&#x3D;&quot;TNT2&#39;));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>需要注意的是select语句具有与where子句中相同数目的列。</p>
+</li>
+<li><p>作为计算字段使用子查询</p>
+</li>
+</ul>
+]]></content>
+  </entry>
 </search>
