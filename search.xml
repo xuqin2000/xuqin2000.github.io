@@ -49,13 +49,9 @@
       </tags>
   </entry>
   <entry>
-    <title></title>
+    <title>《mysql必知必会》学习记录</title>
     <url>/2020/11/27/mysql%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">title: 《mysql必知必会》学习记录</span><br><span class="line">tags: [mysql,技术]</span><br><span class="line">categories: 数据库</span><br><span class="line">description: 看《mysql必知必会》过程中，记录一些MySQL简单语句。</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="1-了解数据库和表"><a href="#1-了解数据库和表" class="headerlink" title="1. 了解数据库和表"></a>1. 了解数据库和表</h4><ul>
+    <content><![CDATA[<h4 id="1-了解数据库和表"><a href="#1-了解数据库和表" class="headerlink" title="1. 了解数据库和表"></a>1. 了解数据库和表</h4><ul>
 <li>连接数据库：<code>mysql -u root -p </code>（使用root权限用户登录数据库）</li>
 <li>查看数据库：<code>show databases;</code> 或者<code>show databases\g </code> （必须用;或\g结束，仅按enter不执行命令）</li>
 <li>选择某一数据库：<code>use case01; </code> (选择case01数据库)</li>
@@ -246,5 +242,12 @@
 </li>
 </ul>
 ]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>技术</tag>
+        <tag>mysql</tag>
+      </tags>
   </entry>
 </search>
