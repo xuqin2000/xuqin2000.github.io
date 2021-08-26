@@ -21,20 +21,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="谁辜负过自己，说不上可惜">
-<meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="http://example.com/archives/categories/index.html">
+  <meta name="description" content="初识MySQL索引">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL索引 第一篇">
+<meta property="og:url" content="http://example.com/2021/03/24/MySQL%E7%B4%A2%E5%BC%95%20%E7%AC%AC%E4%B8%80%E7%AF%87/index.html">
 <meta property="og:site_name" content="Gravity X">
-<meta property="og:description" content="谁辜负过自己，说不上可惜">
+<meta property="og:description" content="初识MySQL索引">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-09-27T05:24:25.000Z">
-<meta property="article:modified_time" content="2020-10-23T08:32:06.956Z">
+<meta property="article:published_time" content="2021-03-24T12:34:33.000Z">
+<meta property="article:modified_time" content="2021-08-26T15:49:11.740Z">
 <meta property="article:author" content="XuQ">
-<meta property="article:tag" content="学习,代码,博客,生活">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="技术">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/archives/categories/">
+<link rel="canonical" href="http://example.com/2021/03/24/MySQL%E7%B4%A2%E5%BC%95%20%E7%AC%AC%E4%B8%80%E7%AF%87/">
 
 
 <script id="page-configurations">
@@ -42,13 +43,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>categories | Gravity X
-</title>
+  <title>MySQL索引 第一篇 | Gravity X</title>
   
 
 
@@ -191,67 +191,195 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
-          <div class="content page posts-expand">
+          <div class="content post posts-expand">
             
 
     
-    
-    
-    <div class="post-block" lang="zh-CN">
-      <header class="post-header">
-
-<h1 class="post-title" itemprop="name headline">categories
-</h1>
-
-<div class="post-meta">
   
-  <ul class="breadcrumb">
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/24/MySQL%E7%B4%A2%E5%BC%95%20%E7%AC%AC%E4%B8%80%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avater.jpg">
+      <meta itemprop="name" content="XuQ">
+      <meta itemprop="description" content="谁辜负过自己，说不上可惜">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gravity X">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MySQL索引 第一篇
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-24 20:34:33" itemprop="dateCreated datePublished" datetime="2021-03-24T20:34:33+08:00">2021-03-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
           
-            <li><a href="/archives/">ARCHIVES</a></li>
-          <li>CATEGORIES</li>
-        
-  </ul>
+            <span id="/2021/03/24/MySQL%E7%B4%A2%E5%BC%95%20%E7%AC%AC%E4%B8%80%E7%AF%87/" class="post-meta-item leancloud_visitors" data-flag-title="MySQL索引 第一篇" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/03/24/MySQL%E7%B4%A2%E5%BC%95%20%E7%AC%AC%E4%B8%80%E7%AF%87/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/24/MySQL%E7%B4%A2%E5%BC%95%20%E7%AC%AC%E4%B8%80%E7%AF%87/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+            <div class="post-description">初识MySQL索引</div>
 
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="为什么会需要索引"><a href="#为什么会需要索引" class="headerlink" title="为什么会需要索引"></a>为什么会需要索引</h3><p>​        我们在自己练习或者小系统中使用mysql数据库时，查询速度是以ms计算的。这时候我们并不需要担心查询性能。但是，当数据的量级上来时，会明显感觉到数据库的性能下降。这时候，我们就需要对数据库进行调优。<br>​       首先分析为什么性能下降，sql语句变慢呢？一个原因是查询的数据过多。第二个原因是关联了太多的表，join使用的太多。我们知道，若使用join语句，那么A表的每一条数据会扫描匹配到B表的所有数据。所以，在使用join语句时，要先过滤。第三个原因就是没有用到索引。</p>
+<h3 id="什么是索引"><a href="#什么是索引" class="headerlink" title="什么是索引"></a>什么是索引</h3><p>​      MySQL官方对索引的定义为：索引（Index）是帮助MySQL高效获取数据的数据结构。因此，可以理解为索引是“<strong>排好序的快速查找的数据结构</strong>”。<br>​        除去数据本身之外，数据库还维护着一个满足特定查找算法的数据结构，而且往往以索引文件的形式存储在磁盘上。这些数据结构以某种方式指向数据，这样就可以在这些数据结构的基础上实现高级查找算法，这种数据结构就是索引。<br>​         索引是针对<strong>列</strong>建立索引。但并不可能每一列都建索引。索引并非越多越好。当数据更新了，索引会进行调整。也会很消耗性能。而且MySQL 并不会把所有索引都用上，只会根据其算法挑一个索引用。所以建的准也很重要。<br>​        虽然索引大大提高了查询速度，同时却会降低更新表的速度。如对表进行INSERT、UPDATE和DELETE操作，因为更新表时，MySQL不仅要保存数据，还要保存一下索引文件每次更新添加了索引列的字段。数据库都需要调整因为更新所带来的键值变化后的索引信息。索引只是提高效率的一个因素，如果MySQL有大数据量的表，就需要花时间研究建立最优秀的索引，或优化查询语句。</p>
+<h3 id="索引的类型"><a href="#索引的类型" class="headerlink" title="索引的类型"></a>索引的类型</h3><p>主键索引：设定为主键后数据库会自动建立索引，innoDB为聚簇索引<br>单值索引：即一个索引只包含单个列，一个表可以有多个单列索引<br>唯一索引：索引列的值必须唯一，但允许有空值<br>组合索引：即一个索引包含多个列</p>
+<p>随表一起建索引：<br>CREATE TABLE customer (id INT(10) UNSIGNED  AUTO_INCREMENT ,customer_no VARCHAR(200),customer_name VARCHAR(200),<br>  <font color="blue">PRIMARY KEY(id), （主键索引）</font><br>  <font color="green">KEY (customer_name),  （单值索引）</font><br>  <font color="red">UNIQUE (customer_name),  （唯一索引）</font><br>  <font color="pink">KEY (customer_no,customer_name) (组合索引)</font><br>);</p>
+<h3 id="聚簇索引和非聚簇索引"><a href="#聚簇索引和非聚簇索引" class="headerlink" title="聚簇索引和非聚簇索引"></a>聚簇索引和非聚簇索引</h3><p>​         聚簇索引不是一种索引类型，而是一种数据存储方式。术语‘聚簇’表示数据行和相邻的键值进错的存储在一起。<br>​        很简单记住一句话：找到了索引就找到了需要的数据，那么这个索引就是聚簇索引，所以主键就是聚簇索引，修改聚簇索引其实就是修改主键。<br>​        索引的存储和数据的存储是分离的，也就是说找到了索引但没找到数据，需要根据索引上的值(主键)再次回表查询,非聚簇索引也叫做辅助索引。<br>​        聚簇索引的好处：<br>​        按照聚簇索引排列顺序，查询显示一定范围数据的时候，由于数据都是紧密相连，数据库不用从多个数据块中提取数据，所以节省了大量的io操作。<br>​        聚簇索引的限制：</p>
+<ul>
+<li>对于mysql数据库目前只有innodb数据引擎支持聚簇索引，而Myisam并不支持聚簇索引。<br>由于数据物理存储排序方式只能有一种，所以每个Mysql的表只能有一个聚簇索引。一般情况下就是该表的主键。</li>
+<li>为了充分利用聚簇索引的聚簇的特性，所以innodb表的主键列尽量选用有序的顺序id，而不建议用无序的id，比如uuid这种。（参考聚簇索引的好处。</li>
+</ul>
+<p>这里说明了主键索引为何采用自增的方式：1、业务需求，有序。2、能使用到聚簇索引</p>
+
+    </div>
+
+    
+    
+    
+
+<div>
+		  
+			<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
 </div>
-
-</header>
-
+		  
+		</div>
+        <div class="reward-container">
+  <div>谢谢你请我吃糖果</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
       
-      
-      
-      <div class="post-body">
-          <div class="category-all-page">
-            <div class="category-all-title">
-              目前共计 4 个分类
-            </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A1%86%E6%9E%B6/">框架</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><span class="category-list-count">1</span></li></ul>
-            </div>
-          </div>
-        
+      <div style="display: inline-block;">
+        <img src="/images/wechat.jpg" alt="XuQ 微信支付">
+        <p>微信支付</p>
       </div>
       
-      
-      
-    </div>
-    
-  <ul class="breadcrumb">
-          
-            <li><a href="/archives/">ARCHIVES</a></li>
-          <li>CATEGORIES</li>
-        
-  </ul>
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="XuQ 支付宝">
+        <p>支付宝</p>
+      </div>
 
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>XuQ
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2021/03/24/MySQL%E7%B4%A2%E5%BC%95%20%E7%AC%AC%E4%B8%80%E7%AF%87/" title="MySQL索引 第一篇">http://example.com/2021/03/24/MySQL索引 第一篇/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
+              <a href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag"><i class="fa fa-tag"></i> 技术</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/22/UML%E7%B1%BB%E5%9B%BE/" rel="prev" title="UML类图中关系">
+      <i class="fa fa-chevron-left"></i> UML类图中关系
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/03/26/MySQL%E7%B4%A2%E5%BC%95%20%E7%AC%AC%E4%BA%8C%E7%AF%87/" rel="next" title="MySQL索引 第二篇">
+      MySQL索引 第二篇 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
     
-    
-    
+	
+  </article>
+  
+  
+  
+
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -298,6 +426,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E9%9C%80%E8%A6%81%E7%B4%A2%E5%BC%95"><span class="nav-number">1.</span> <span class="nav-text">为什么会需要索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%B4%A2%E5%BC%95"><span class="nav-number">2.</span> <span class="nav-text">什么是索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">索引的类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95"><span class="nav-number">4.</span> <span class="nav-text">聚簇索引和非聚簇索引</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -1,253 +1,219 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>踩坑日常——博客搭建(Hexo+node.js)</title>
-    <url>/2020/10/23/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA(Hexo+node.js)/</url>
-    <content><![CDATA[<p>搭建一个Hexo静态博客所需要安装的有 Node.js和Hexo以及git环境。上传的(免费)服务器可以选择github、gitee、coding等。我选择的是<strong>gitee</strong>。我的电脑环境是win10，所以安装git之后，在git bash里面可以用Linux命令。安装的步骤教程网上有很多，这里我就不赘述。主要记录一下配置过程中所遇到的几处<strong>问题</strong>以及我解决的方案(不一定是<strong>最优解</strong>)。</p>
-<hr>
-<h4 id="一：标签about里面的内容写出来不能识别"><a href="#一：标签about里面的内容写出来不能识别" class="headerlink" title="一：标签about里面的内容写出来不能识别"></a>一：标签about里面的内容写出来不能识别</h4><p>在按照网上大部分配置首页，分类，标签这种页面的步骤配置之后，</p>
-<p>我发现about这一栏我出现了问题。于是去找关于文章写作的相关命令。</p>
-<p>排查错误之后，发现是</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">title: about</span><br><span class="line">type: about</span><br><span class="line">layout: &quot;about&quot;</span><br></pre></td></tr></table></figure>
-<p>这一部分的错误。原因是yml的格式，<strong>需要在：之后打上空格。</strong></p>
-<p>所以，不论是配置类，如<strong>_config.yml</strong>文件还是在写博客的<strong>md</strong>文件中，冒号之后需要配置的记得来一个空格。</p>
-<hr>
-<h4 id="二、本地文件不能与gitee上同步"><a href="#二、本地文件不能与gitee上同步" class="headerlink" title="二、本地文件不能与gitee上同步"></a>二、本地文件不能与gitee上同步</h4><p> 最大的问题就是这个了。为了解决这个问题花了两天时间…</p>
-<p>一开始配置好的时候就一股脑的上传了，然后改主题，写了测试博客。在本地运行<strong>hexo c (清除缓存)**和</strong>hexo g(生成静态文件)** 以及 <strong>hexo s(本地运行)</strong></p>
-<p>之后，在本地输入<strong>localhost:4000</strong>(默认此端口)之后就可以进行博客的预览了。这几步进行下来比较顺利。可是在部署在远程服务器这一步出现了问题。</p>
-<p>我根据主题改成的自己的博客发布上去之后，访问到的还是之前的主题。也就是说，我的页面并没有更改。查找了一些相关博文以及问答之后，我进行了重新部署。具体是根据这篇 <a href="https://blog.csdn.net/GAI159/article/details/105128186">https://blog.csdn.net/GAI159/article/details/105128186</a>对于分支进行了修改。</p>
-<p>一般情况下，在git中使用命令hexo c &amp;&amp; hexo g - d发布上去就行了。但是我试了很多也找了好多博文跟着做也不行。</p>
-<p>最后解决方案：更新博客或者删除之后，hexo g-d(这样上传到gitee的master分支上)，然后再在gitee pages服务那里，点击更新重新部署。</p>
-<p>这样很麻烦，目前的问题就是发布在gitee上是有更新的，但是网站不能更新。暂时的方法只有这样了。</p>
-<hr>
-<h4 id="三、使用个人域名"><a href="#三、使用个人域名" class="headerlink" title="三、使用个人域名"></a>三、使用个人域名</h4><p><a href="https://xq2000.gitee.io/">https://xq2000.gitee.io</a> 这样的名字不太好听(gitee提供的免费服务器)。所以我决定申请一个域名。这里又是一个摸石头过河的过程……</p>
-<p>首先，我所知道的平台就是github、gitee以及coding(自建服务器不考虑)。本来我的代码仓库放在gitee上的，国内毕竟访问什么的不受限制。所以当我兴冲冲的申请好域名之后……gitee上面居然要升级Gitee Page Pro才能加入个人域名(90多一年呢……)于是我又去coding。在coding上，我们发布博客除了配置个人域名，添加域名解析记录以及申请SSL证书以外，还需要开启CDN功能。</p>
-<h5 id="CDN功能"><a href="#CDN功能" class="headerlink" title="CDN功能"></a>CDN功能</h5><p>CDN功能开启有相应的计费说明和文档(没错，需要付费。不过有送的128G流量包)。域名接入 CDN 后，系统会自动分配一个以 <code>.cdn.dnsv1.com</code> 为后缀的 CNAME 域名，可在 CDN 控制台 <a href="https://console.cloud.tencent.com/cdn/domains">域名管理页</a> 查看。CNAME 域名不能直接访问，需要在域名服务提供商处完成 CNAME 配置。</p>
-<h5 id="自定义域名添加"><a href="#自定义域名添加" class="headerlink" title="自定义域名添加"></a>自定义域名添加</h5><p>CDN开启后，就可以加入自定义域名了。CDN的服务还没有开启，需要接入域名。可以先配置域名，之后接入CDN。</p>
-<p>输入你的域名，绑定即可。添加好个人域名之后，会自动去申请SSL证书。</p>
-<p><img src="https://s1.ax1x.com/2020/10/02/0ldgF1.png" alt="0ldgF1.png"></p>
-<hr>
-<h5 id="添加域名解析记录"><a href="#添加域名解析记录" class="headerlink" title="添加域名解析记录"></a>添加域名解析记录</h5><p>域名添加好之后，需要去为域名添加CNAME记录。<img src="https://s1.ax1x.com/2020/10/02/0ld9G6.png" alt="0ld9G6.png"></p>
-<p><img src="https://s1.ax1x.com/2020/10/02/0ldXSf.png" alt="0ldXSf.png"></p>
-<p>这里的记录值(也就是CNAME指向)是需要复制到CNAME记录中去的。</p>
-<p>显示审核中就是你需要去添加的CNAME记录。</p>
-<p>去到对应的域名托管处进行添加。我用的是腾讯云。</p>
-<p><img src="https://s1.ax1x.com/2020/10/02/0ldGZj.png" alt="0ldGZj.png"></p>
-<p>主机记录填写之前填写的域名前缀（例如：blog.okok.host 填写 blog），也可以填上**@<strong>。记录类型填写 **CNAME</strong>，记录值填写域名列表中的 CNAME 指向(也是上面画红线的记录值)（例如：niqux.top.cdn.dnv1.com）</p>
-<h5 id="SSL证书"><a href="#SSL证书" class="headerlink" title="SSL证书"></a>SSL证书</h5><p>配置好之后，如果你的域名服务状态和DNS状态显示不正常，那么就需要申请SSL证书。(在配置个人域名那一步的时候，会自动去申请SSL证书)。这里显示待验证状态的，就是刚才申请的域名所对应的SSL证书了。我是在腾讯云上申请的域名，所以相应的SSL证书是在腾讯云上发布的。一般一个工作日就可以了。</p>
-<p><img src="https://s1.ax1x.com/2020/10/02/0ldRW6.png" alt="0ldRW6.png"></p>
-<hr>
-<p>所有都配置好没有错误之后，重新部署你的项目即可。</p>
-<p>详细可在coding帮助文档查找：<a href="https://help.coding.net/docs/cd/static-website-v2.html?_ga=2.68172817.1030326411.1601571268-1149512744.1601571268#%E6%B7%BB%E5%8A%A0%E8%A7%A3%E6%9E%90%E8%AE%B0%E5%BD%95">https://help.coding.net/docs/cd/static-website-v2.html?_ga=2.68172817.1030326411.1601571268-1149512744.1601571268#%E6%B7%BB%E5%8A%A0%E8%A7%A3%E6%9E%90%E8%AE%B0%E5%BD%95</a></p>
-]]></content>
+<search> 
+  
+  
+    
+    <entry>
+      <title>MySQL索引 第三篇</title>
+      <link href="2021/03/27/MySQL%E7%B4%A2%E5%BC%95%20%E7%AC%AC%E4%B8%89%E7%AF%87/"/>
+      <url>2021/03/27/MySQL%E7%B4%A2%E5%BC%95%20%E7%AC%AC%E4%B8%89%E7%AF%87/</url>
+      
+        <content type="html"><![CDATA[<h3 id="性能分析-explain"><a href="#性能分析-explain" class="headerlink" title="性能分析(explain)"></a>性能分析(explain)</h3><p>​        是什么：使用EXPLAIN关键字可以模拟优化器执行SQL查询语句，从而知道MySQL是如何处理你的SQL语句的。分析你的查询语句或是表结构的性能瓶颈。</p><p>​        做什么：那么explain能够干嘛呢？它大概可以分析出以下几点：</p><ol><li><p>表的读取顺序</p></li><li><p>那些索引可以使用</p></li><li><p>数据读取操作的操作类型</p></li><li><p>哪些索引被实际使用</p></li><li><p>表之间的应用</p></li><li><p>每张表有多少行被优化器查询</p><p>如何做：很简单，我们只要在要执行的sql语句前面加上一个explain即可。<br>执行之后，可以看到如图：<br><img src="../../../Users/xuqin/Typora/d464fccea0517b49.png" alt="image.png"></p></li></ol><h4 id="各字段解释"><a href="#各字段解释" class="headerlink" title="各字段解释"></a>各字段解释</h4><ul><li><p>id：select查询的序列号,包含一组数字，表示查询中执行select子句或操作表的顺序</p><ol><li><p>id相同，执行顺序由上至下</p></li><li><p>id不同，如果是子查询，id的序号会递增，id值越大优先级越高，越先被执行</p></li><li><p>id有相同也有不同，同时存在。id如果相同，可以认为是一组，从上往下顺序执行；在所有组中，id值越大，优先级越高，越先执行</p></li></ol></li><li><p>select_type：查询的类型，主要是用于区别普通查询、联合查询、子查询等的复杂查询</p></li><li><p>table：显示这一行的数据是关于哪张表的</p></li><li><p>type：显示查询使用了何种类型，从<strong>最好到最差</strong>依次是system&gt;const&gt;eq_ref&gt;ref&gt;range&gt;index&gt;ALL</p></li><li><p>possible_keys: 显示可能应用在这张表中的索引，一个或多个。<br>查询涉及到的字段上若存在索引，则该索引将被列出，但不一定被查询实际使用</p></li><li><p>key:  实际使用的索引。如果为NULL，则没有使用索引</p></li><li><p>key_len</p></li><li><p>ref</p></li><li><p>rows</p></li><li><p>Extra</p></li></ul>]]></content>
+      
+      
       <categories>
-        <category>前端学习</category>
+          
+          <category> 数据库 </category>
+          
       </categories>
-      <tags>
-        <tag>踩坑日常</tag>
-        <tag>技术</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>《mysql必知必会》学习记录</title>
-    <url>/2020/11/27/mysql%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h4 id="1-了解数据库和表"><a href="#1-了解数据库和表" class="headerlink" title="1. 了解数据库和表"></a>1. 了解数据库和表</h4><ul>
-<li>连接数据库：<code>mysql -u root -p </code>（使用root权限用户登录数据库）</li>
-<li>查看数据库：<code>show databases;</code> 或者<code>show databases\g </code> （必须用;或\g结束，仅按enter不执行命令）</li>
-<li>选择某一数据库：<code>use case01; </code> (选择case01数据库)</li>
-<li>查看某一数据库内的列表：<code>show tables;</code></li>
-<li>显示表列：两种方式<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">显示users表的表列:</span><br><span class="line">1.show columns from users; </span><br><span class="line">2.describe users;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">小结：可以使用 help show; 查看允许的show语句。</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h4 id="2-检索数据-select语句"><a href="#2-检索数据-select语句" class="headerlink" title="2. 检索数据(select语句)"></a>2. 检索数据(select语句)</h4><ul>
-<li><p><code>select *  (*被称为通配符)</code>：查到所有的列，<strong>尽量不用，降低检索效率。</strong></p>
-</li>
-<li><p><code>select distinct</code>：只返回不同的值</p>
-</li>
-<li><p><code>select...from... limit 5</code>: limit子句，返回不多于5行</p>
-</li>
-<li><p><code>select...from... limit 5,3</code>: limit5,3指示返回从第5行开始的3行数据。第一位是<strong>开始位置</strong>，第二位是<strong>要检索行数</strong>。</p>
-</li>
-<li><p><code>select...from... limit 4 offset 3</code>:从第3行开始取4行。等价于 limit 3,4.</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">注意：检索出来的第一行为0而不是行1。limit 1,1 将检索出第二行而不是第一行.</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>select user.name from user</code>:完全限定的名字来引用列</li>
-<li><code>select user.name from case01.user</code>：完全限定的表名来引用</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">小结：select检索单个或多个表列及所有表列。limit可以限制查询行数。</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-排序检索-order-by子句"><a href="#3-排序检索-order-by子句" class="headerlink" title="3. 排序检索(order by子句)"></a>3. 排序检索(order by子句)</h4><ul>
-<li><p><code>select qq from user order by qq;</code>：对qq列以qq列字母排序大小进行排序</p>
-</li>
-<li><p>order by子句也可以用未选择的列作为排序标准。</p>
-<p><code>select qq from user order by email;</code>：对qq列以email列(未选择的列)字母排序大小进行排序</p>
-</li>
-<li><p>对多个列排序 <code>SELECT * FROM user order by gender,age;</code>:对查询结果先按性别排序，再按年龄排序。</p>
-</li>
-<li><p>倒序排序 desc关键字(在order by子句之后)</p>
-<p><code>SELECT * FROM user order by age desc;</code>: 倒序查找年龄(最大的排在最前面)</p>
-<p><code>SELECT * FROM user order by age desc,name;</code>:以降序排序年龄(最大的在前面)，然后再对名字(升序)排序</p>
-<p><code>SELECT * FROM user order by age DESC,name DESC;</code>：以降序排序年龄(最大的在前面)，然后再对名字(降序)排序</p>
-</li>
-</ul>
-<h4 id="4-搜索符合条件数据-where-子句"><a href="#4-搜索符合条件数据-where-子句" class="headerlink" title="4.  搜索符合条件数据(where 子句)"></a>4.  搜索符合条件数据(where 子句)</h4><ul>
-<li><p>where 子句操作符</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x3D;、&lt;、&gt;、&lt;&#x3D;、&gt;&#x3D; 字面意思</span><br><span class="line">&lt;&gt;    不等于</span><br><span class="line">!&#x3D;    不等于</span><br><span class="line">between 在指定的两个值之间</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>检查单个值<br><code>SELECT name,age FROM user where name=&#39;QQx&#39;;</code>:查找name为qqx的user语句。(执行匹配时不区分大小写，所以QQx能与qqx匹配)</p>
-</li>
-<li><p>不匹配检查<br><code>SELECT name,age FROM user where age &lt;&gt; 22 ;</code>: 查询年龄不为22的user语句。</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">注意：何时使用引号：单引号用来限定字符串。所以若是查询串类型的值，需要加上引号，数值类型则不需要。</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>范围值检查(数值类型)<br><code>SELECT name,age FROM user where age BETWEEN 22 and 28</code>:查询年龄在22~28之间的user。</p>
-</li>
-<li><p>空值检查<br><code>SELECT name,age FROM user WHERE name IS NULL</code>：检查name为null值的列</p>
-</li>
-</ul>
-<h4 id="5-数据过滤-where子句中-NOT与IN操作符"><a href="#5-数据过滤-where子句中-NOT与IN操作符" class="headerlink" title="5. 数据过滤(where子句中 NOT与IN操作符)"></a>5. 数据过滤(where子句中 NOT与IN操作符)</h4><ul>
-<li><p>组合where子句(and)<br><code>SELECT name,age,gender FROM user WHERE name =&#39;赵六&#39; AND age&gt;18</code>：查询name为赵六并且年龄18岁以上的user。添加and可以组合多个过滤条件。用来检索满足所有给定条件的行。</p>
-</li>
-<li><p>组合where子句(or)<br><code>SELECT name,age,gender FROM user WHERE name =&#39;赵六&#39; or name=&#39;田甜&#39;</code>：查询name为赵六或者name为田甜的user。添加or用来检索满足匹配任一条件的行。</p>
-</li>
-<li><p>or与and计算次序<br><code>SELECT name,age,gender FROM user WHERE name =&#39;赵六&#39; or name=&#39;田甜&#39; AND age&gt;19</code>查询name为赵六 或者 name为田甜并且年龄18岁以上的user。<br><code>SELECT name,age,gender FROM user WHERE (name =&#39;赵六&#39; or name=&#39;田甜&#39; )AND age&gt;19</code> 查询name为赵六或者 name为田甜  并且年龄18岁都在以上的user。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">注意：sql与多数语言一样，优先处理and(优先级 &amp;&amp;&gt;||)。所以在同时使用or、and操作符时，应当加上括号，消除歧义。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>IN操作符<br>  in操作符可以完成or相同功能，即用来指定要匹配值的清单的关键字时，功能相当。<br><code>SELECT id, name,age,gender FROM user WHERE name in (&#39;qqx&#39;,&#39;赵六&#39;,&#39;田甜&#39;)</code> :查询name在 (  ) 范围内的user。</p>
-</li>
-<li><p>not操作符<br><code>SELECT id, name,age,gender FROM user WHERE name NOT IN (&#39;qqx&#39;,&#39;赵六&#39;,&#39;田甜&#39;)</code>:查询name不在 (  ) 范围内的user。</p>
-</li>
-</ul>
-<h4 id="6-通配符过滤-like操作符"><a href="#6-通配符过滤-like操作符" class="headerlink" title="6. 通配符过滤(like操作符)"></a>6. 通配符过滤(like操作符)</h4><ul>
-<li><p>百分号(%)通配符：任何字符出现任意次数<br><code>SELECT id, name,age,gender FROM user WHERE name LIKE &#39;赵%&#39;</code>：查找name中以’赵’开头的词。(搜索可以不区分大小写)<br><code>SELECT id, name,qq FROM user WHERE qq LIKE &#39;%13%&#39;</code>：查找qq中包含13文本的值的所有user行。<br><code>SELECT id, name,qq FROM user WHERE qq LIKE &#39;1%3&#39;</code>查找qq中以1开头，3结尾的文本的值 的所有user行。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">注意：like不能匹配值为null的行。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>下划线( _ ）通配符：只能匹配一个字符<br><code>SELECT id, name FROM user WHERE name LIKE &#39;_六&#39;</code>：查找缺失第一个字符且第二个字符为六的user行<br><code>SELECT id, nameFROM user WHERE name LIKE &#39;%_六%&#39; </code></p>
-</li>
-</ul>
-<h4 id="7-正则表达式搜索"><a href="#7-正则表达式搜索" class="headerlink" title="7. 正则表达式搜索"></a>7. 正则表达式搜索</h4><ul>
-<li>简单匹配<br><code>SELECT id, name FROM user WHERE name REGEXP &#39;赵六&#39;</code>:检索含有文本’赵六’的所有user行 (等同于 like ‘%赵六%’)</li>
-</ul>
-<p><code>SELECT id, name FROM user WHERE name REGEXP &#39;.六&#39;</code>: .表示匹配任意一个字符</p>
-<ul>
-<li>进行or匹配<br><code>SELECT id, name FROM user WHERE name REGEXP &#39;赵|刘&#39;</code>：检索name中包含赵或刘文本的user行。|为正则表达式中的OR操作符。也可以给出两个以上的|。如 ‘刘|赵|王’</li>
-</ul>
-<p><code>SELECT id, name FROM user WHERE name REGEXP &#39;[赵刘]六&#39;</code>检索name中赵或刘且包含六的user行。可以理解为’赵|刘’ and 含有’六’。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[赵刘]六 其实是[赵|刘]六的缩写。加上[]是用来定义or语句。如果没有[],则变成了赵|刘六。这会引起歧义，事实上mysql的确会误会。</span><br><span class="line">可以把]之后想象有一个and。即[赵or刘] and 六。这其实就是or与and的计算次序问题。</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>匹配范围(数字范围，字符范围等)<br><code>SELECT id, name,qq FROM user WHERE qq REGEXP &#39;[1-5]66&#39;</code> 查找qq中以[1-5]范围内的文本为开头，含有66文本的user行。</p>
-</li>
-<li><p>匹配特殊字符(匹配  . 、 _ 、[]、|等 )<br>  使用\转义字符<br><code>SELECT id, name,qq FROM user WHERE qq REGEXP &#39;\\.&#39;:</code>查询qq列中含有 . 的user行 </p>
-</li>
-<li><p>匹配多个实例 </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 	    0个或多个匹配</span><br><span class="line">+		1个或多个匹配(相当于&#123;1,&#125;) 	  </span><br><span class="line">?     	0个或1个匹配(相当于&#123;0,1&#125;)</span><br><span class="line">&#123;n&#125;   	指定数目的匹配</span><br><span class="line">&#123;n,&#125; 	不少于n个数目的匹配</span><br><span class="line">&#123;n,m&#125;	匹配n到m的范围(m不超过255)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p><code>SELECT id, name,qq FROM user WHERE name REGEXP &#39;([aq]haa?)&#39;</code>:查找name列中以a或q开头，含有ha或者<code>haa</code>(?使得a可选)的user行</p>
-<ul>
-<li>定位符<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">^ 			文本的开始</span><br><span class="line">$ 			文本的结尾</span><br><span class="line">[[:&lt;:]]		词的开始</span><br><span class="line">[[:&gt;:]]		词的结尾</span><br></pre></td></tr></table></figure>
-<code>SELECT id, name,qq FROM user WHERE name REGEXP &#39;[六福]$&#39;</code>查询name列以六或者福为结尾的user行</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. ^ 有两种用途。[]中否定集合，还可以指串的开始</span><br><span class="line">2. like与regexp的不同在于 like匹配整个串而regexp匹配子串。</span><br><span class="line">若regexp利用 ^开头，$结尾定义表达式，则等价于like。</span><br></pre></td></tr></table></figure>
-<h4 id="8-计算字段"><a href="#8-计算字段" class="headerlink" title="8. 计算字段"></a>8. 计算字段</h4><ul>
-<li><p>拼接字段<br><code>select CONCAT(id,&#39;(&#39;, name,&#39;)&#39;) from user ORDER BY id;</code>：将id与(name)拼接。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql拼接串使用的是concat函数，而其他数据库多数使用+或||实现。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>去除空格(RTrim()（右去除）、LTrim()（左去除）、Trim()（两边去除）)<br><code>select CONCAT(id,&#39;(&#39;, RTrim(name),&#39;)&#39;) from user ORDER BY id;</code> 去除name右边的所有空格后进行拼接</p>
-</li>
-<li><p>AS关键字<br><code>select CONCAT(id,&#39;(&#39;,RTrim(name),&#39;)&#39;) AS id_name from user ORDER BY id;</code> （实际对表没有影响） 返回一个字段为id_name 的字段，放置操作的结果</p>
-</li>
-<li><p>算术运算</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql支持基本算术操作符+-*&#x2F;，圆括号()可以用来区分顺序</span><br></pre></td></tr></table></figure>
-<p><code>select id,quantity,price,quantity*price AS quantity_price from order where id=1000</code> 将quantity * price看做是一个字段。</p>
-</li>
-</ul>
-<h4 id="9-使用函数"><a href="#9-使用函数" class="headerlink" title="9.使用函数"></a>9.使用函数</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">函数没有sql的可移植性强。不同的数据库支持不同的函数，各有差异。</span><br><span class="line">所以用函数时，需写好注释。</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>文本处理函数<br><code>select CONCAT(id,&#39;(&#39;,upper(name),&#39;)&#39;) AS id_name from user ORDER BY id</code> 将name转换成大写</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">常见的文本处理函数</span><br><span class="line">Left()			返回串左边的字符</span><br><span class="line">Right()			返回串右边的字符</span><br><span class="line">Lower() 		将串转换成小写</span><br><span class="line">Upper()        		将串转换成大写</span><br><span class="line">LTrim() 		去除串左边的空格</span><br><span class="line">RTrim() 		去除串右边的空格</span><br><span class="line">Length()		返回串的长度</span><br><span class="line">Locate()		找出串的一个子串</span><br><span class="line">Soundex() 		返回串的Soundex值</span><br><span class="line">SubString()  	    返回子串的字符</span><br><span class="line"></span><br><span class="line">其中，soundex是一个将任何文本串转换成描述其语音表示的字母数字模式的算法。</span><br><span class="line">考虑到类似的发音字符和音节，使得能对串进行发音比较而不是字符比较。</span><br></pre></td></tr></table></figure>
-
-<p><code>select id,name from user where soundex(name)=soundex(&#39;李红&#39;);</code>:匹配发音类似于李红的名字</p>
-<ul>
-<li>日期和时间处理函数<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AddDate() 		增加一个日期（天、周等）</span><br><span class="line">AddTime() 		增加一个时间（时、分等）</span><br><span class="line">CurDate()		返回当前日期</span><br><span class="line">CurTime() 	   	     返回当前时间</span><br><span class="line">Date()		  	  返回日期时间的日期部分</span><br><span class="line">DateDiff()	      	 计算两个日期之差</span><br><span class="line">Date_Add()	          高度灵活的日期运算函数</span><br><span class="line">Date_Format()         返回一个格式化的日期或时间串</span><br><span class="line">Day()		        返回一个日期的天数部分</span><br><span class="line">DayofWeek()	 	 对于一个日期，返回对应的星期几</span><br><span class="line">Hour()		        返回一个时间的小时部分</span><br><span class="line">Minute()	  	  返回一个时间的分钟部分</span><br><span class="line">Month()	 	         返回一个日期的月份部分</span><br><span class="line">NoW()	                返回当前日期和时间</span><br><span class="line">Second()   	       	    返回一个时间的秒部分</span><br><span class="line">Time()                	 返回一个日期时间的时间部分</span><br><span class="line">Year() 		  	   返回一个日期的年份部分</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p><code>SELECT id,create_time from discuss_post where DATE(create_time)=&#39;2020-04-04&#39;</code> 查询给定日期部分(部分比较列中日期，因为列中可能是yyyy-MM-dd HH:mm:ss格式)</p>
-<p><code>SELECT id,create_time from discuss_post where Year(create_time)=2019 AND Month(create_time)=7</code>:查询2019年七月的记录。</p>
-<ul>
-<li>数值处理函数<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Abs()            	返回一个数的绝对值</span><br><span class="line">Cos()     	 	返回一个角度的余弦</span><br><span class="line">Exp()     	 	返回一个数的指数值</span><br><span class="line">Mod()		返回除操作的余数</span><br><span class="line">Pi()		  返回圆周率</span><br><span class="line">Rand()		 返回一个随机数</span><br><span class="line">Sin()		 返回一个角度的正弦</span><br><span class="line">Sqrt()		  返回一个数的平方根</span><br><span class="line">Tan()		返回一个角度的正切</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h4 id="10-聚集函数"><a href="#10-聚集函数" class="headerlink" title="10. 聚集函数"></a>10. 聚集函数</h4><p>我们经常需要汇总数据而不用把它们实际检索出来，为此MySQL提供了专门的函数。使用这些函数，MySQL查询可用于检索数据，以便分析和报表生成。这种类型的检索例子有以下几种。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AVG()		返回某列的平均值</span><br><span class="line">COUNT()		返回某列的行数</span><br><span class="line">MAX()		返回某列的最大值</span><br><span class="line">MIN()		返回某列的最小值</span><br><span class="line">SUM()		返回某列值之和</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>AVG() 求平均值<br><code>SELECT AVG(age) from user</code>:用户的平均年龄<br><code>SELECT AVG(age) from user where name=&#39;赵六&#39;</code>:name为赵六的人的平均年龄</p>
-</li>
-<li><p>COUNT()  计数<br><code>select count(*) from user</code>:对所有行计数，不管有无null值<br><code>select count(email) from user</code>:对特定行计数，null不计数。</p>
-</li>
-<li><p>MAX() 求最大值<br><code>select max(age) from user</code>：查询最大值</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">对非数值数据使用MAX()与MIN()：</span><br><span class="line">虽然MAX() 一般用来找出最大的数值或日期值，但MySQL允许将它用来返回任意列中的最大值，包括返回文本列中的最大值。在用于文本数据时，如果数据按相应的列排序，则MAX（）返回最后一行。</span><br><span class="line">MAX()忽略列值为null的行</span><br><span class="line">MIN()与MAX()用法一样。</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>SUM() 求和</p>
-<ul>
-<li>计算指定列值的和：<code>SELECT SUM(age) from user where name=&#39;赵六&#39;</code>:对姓名为赵六的user年龄求和</li>
-<li>合计计算值：<code>select sum(quantity*price) AS total_price from order where id=1000</code>：合计每项物品的价格，得出总价格</li>
-</ul>
-</li>
-<li><p>组合聚集函数</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select COUNT(*) as user_nums, </span><br><span class="line">MIN(age) as age_min,</span><br><span class="line">MAX(age) as age_max,</span><br><span class="line">AVG(age) as avg_age</span><br><span class="line">from user;</span><br></pre></td></tr></table></figure>
-<h4 id="11-分组数据"><a href="#11-分组数据" class="headerlink" title="11.分组数据"></a>11.分组数据</h4></li>
-<li><p>group by子句<br><code>select gender,COUNT(*) from user GROUP BY gender</code>:以性别分组</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">使用ROLLUP：</span><br><span class="line">使用with rollup关键字，可以得到每个分组以及每个分组汇总级别(针对每个分组)的值</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>having子句<br>having与where作用类似，语法和where相同。区别是having过滤分组而where过滤行。或者说，where是在分组前进行过滤，而having是在分组后进行过滤。where排除的行不包括在分组中。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select id,count(*) AS num_prods </span><br><span class="line">from products</span><br><span class="line">where price&gt;&#x3D;10</span><br><span class="line">group by id</span><br><span class="line">having count(*) &gt; 2</span><br><span class="line"></span><br><span class="line">where先过滤行，小于10的行数先过滤，不进行分组；然后再进行having分组，统计2以上的分组。</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>分组与排序(order by与group by)<ul>
-<li>使用group by时，应加上order by子句。因为group by排序不一定正确。</li>
-<li>group by 如果与聚集函数一起使用列(或表达式)，则必须使用</li>
-<li>group by 只可能使用选择列或表达式列，而且必须使用每个选择列表达式</li>
-</ul>
-</li>
-</ul>
-<h4 id="12-使用子查询"><a href="#12-使用子查询" class="headerlink" title="12. 使用子查询"></a>12. 使用子查询</h4><p>mysql中，子查询是从内向外处理。</p>
-<ul>
-<li><p>利用子查询进行过滤</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT cust_name,cust_contact </span><br><span class="line">FROM customers </span><br><span class="line">WHERE cuSt_id IN(SELECT cuSt_id </span><br><span class="line">				FROM orders </span><br><span class="line">				WHERE order_num IN(SELECT order_num </span><br><span class="line">									FROM orderitems </span><br><span class="line">									WHERE prod_id&#x3D;&quot;TNT2&#39;));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>需要注意的是select语句具有与where子句中相同数目的列。</p>
-</li>
-<li><p>作为计算字段使用子查询</p>
-</li>
-</ul>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> MySQL </tag>
+            
+            <tag> 技术 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>MySQL索引 第二篇</title>
+      <link href="2021/03/26/MySQL%E7%B4%A2%E5%BC%95%20%E7%AC%AC%E4%BA%8C%E7%AF%87/"/>
+      <url>2021/03/26/MySQL%E7%B4%A2%E5%BC%95%20%E7%AC%AC%E4%BA%8C%E7%AF%87/</url>
+      
+        <content type="html"><![CDATA[<h3 id="MySQL索引结构"><a href="#MySQL索引结构" class="headerlink" title="MySQL索引结构"></a>MySQL索引结构</h3><p>在数据库中，索引是有很多种类的。有B树索引、B+树索引、hash索引等等。<br>不同的索引是为了在不同的场合下应用。我们最常听到的索引应该就是B+树索引。因为MySQL中innodb的普通索引就是使用的B+Tree索引。 </p><ul><li><p> BTree索引<br>Myisam普通索引</p></li><li><p> B+Tree索引<br>innodb的普通索引</p></li><li><p>Hash索引<br>Hash索引只有Memory, NDB两种引擎支持，Memory引擎默认支持Hash索引，如果多个hash值相同，出现哈希碰撞，那么索引以链表方式存储。<br>NoSql采用此中索引结构。</p></li><li><p>B+Tree与B-Tree 的区别：结论在内存有限的情况下，B+TREE 永远比 B-TREE好。无限内存则后者方便</p><p>　1）B-树的关键字和记录是放在一起的，叶子节点可以看作外部节点，不包含任何信息；B+树叶子节点中只有关键字和指向下一个节点的索引，记录只放在叶子节点中。(一次查询可能进行两次i/o操作)<br>  　 2）在B-树中，越靠近根节点的记录查找时间越快，只要找到关键字即可确定记录的存在；而B+树中每个记录的查找时间基本是一样的，都需要从根节点走到叶子节点，而且在叶子节点中还要再比较关键字。从这个角度看B-树的性能好像要比B+树好，而在实际应用中却是B+树的性能要好些。因为B+树的非叶子节点不存放实际的数据，这样每个节点可容纳的元素个数比B-树多，树高比B-树小，这样带来的好处是减少磁盘访问次数。尽管B+树找到一个记录所需的比较次数要比B-树多，但是一次磁盘访问的时间相当于成百上千次内存比较的时间，因此实际中B+树的性能可能还会好些，而且B+树的叶子节点使用指针连接在一起，方便顺序遍历（例如查看一个目录下的所有文件，一个表中的所有记录等），这也是很多数据库和文件系统使用B+树的缘故。<br>  　<br>思考：为什么说B+树比B-树更适合实际应用中操作系统的文件索引和数据库索引？ </p><ol><li>B+树的磁盘读写代价更低<br>　　B+树的内部结点并没有指向关键字具体信息的指针。因此其内部结点相对B 树更小。如果把所有同一内部结点的关键字存放在同一盘块中，那么盘块所能容纳的关键字数量也越多。一次性读入内存中的需要查找的关键字也就越多。相对来说IO读写次数也就降低了。 </li><li>B+树的查询效率更加稳定<br>　　由于非终结点并不是最终指向文件内容的结点，而只是叶子结点中关键字的索引。所以任何关键字的查找必须走一条从根结点到叶子结点的路。所有关键字查询的路径长度相同，导致每一个数据的查询效率相当。<h3 id="建立索引的注意点"><a href="#建立索引的注意点" class="headerlink" title="建立索引的注意点"></a>建立索引的注意点</h3>​        InnoDB与MyISAM会自动为主键或者声明为UNIQE的列去自动建立B+树索引。除此之外，还需要我们自己创建索引。那么，哪些情况适合创建，哪些不适合呢？</li></ol></li></ul><p>​        创建索引的目的是希望能够快速查询。所以在建立索引之后能让查询变快，就可以考虑加索引。比如以下情况：</p><ol><li>频繁作为查询条件的字段应该创建索引</li><li>查询中与其它表关联的字段，外键关系建立索引</li><li>查询中排序的字段，排序字段若通过索引去访问将大大提高排序速度</li><li>查询中统计或者分组字段</li></ol><p>​        当建立索引并没有使查询变快或者反而增加了数据库空间(所以也占据空间)，那么就没有必要建立索引。比如以下情况：</p><ol><li>表记录太少</li><li>经常增删改的表。提高了查询速度，同时却会降低更新表的速度，如对表进行INSERT、UPDATE和DELETE。因为更新表时，MySQL不仅要保存数据，还要保存一下索引文件。</li><li>Where条件里用不到的字段不创建索引</li><li>数据重复且分布平均的表字段，因此应该只为最经常查询和最经常排序的数据列建立索引。如果某个数据列包含许多重复的内容，为它建立索引就没有太大的实际效果。比如“性别”这一列。</li></ol>]]></content>
+      
+      
       <categories>
-        <category>数据库</category>
+          
+          <category> 数据库 </category>
+          
       </categories>
-      <tags>
-        <tag>技术</tag>
-        <tag>mysql</tag>
-      </tags>
-  </entry>
+      
+      
+        <tags>
+            
+            <tag> MySQL </tag>
+            
+            <tag> 技术 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>MySQL索引 第一篇</title>
+      <link href="2021/03/24/MySQL%E7%B4%A2%E5%BC%95%20%E7%AC%AC%E4%B8%80%E7%AF%87/"/>
+      <url>2021/03/24/MySQL%E7%B4%A2%E5%BC%95%20%E7%AC%AC%E4%B8%80%E7%AF%87/</url>
+      
+        <content type="html"><![CDATA[<h3 id="为什么会需要索引"><a href="#为什么会需要索引" class="headerlink" title="为什么会需要索引"></a>为什么会需要索引</h3><p>​        我们在自己练习或者小系统中使用mysql数据库时，查询速度是以ms计算的。这时候我们并不需要担心查询性能。但是，当数据的量级上来时，会明显感觉到数据库的性能下降。这时候，我们就需要对数据库进行调优。<br>​       首先分析为什么性能下降，sql语句变慢呢？一个原因是查询的数据过多。第二个原因是关联了太多的表，join使用的太多。我们知道，若使用join语句，那么A表的每一条数据会扫描匹配到B表的所有数据。所以，在使用join语句时，要先过滤。第三个原因就是没有用到索引。</p><h3 id="什么是索引"><a href="#什么是索引" class="headerlink" title="什么是索引"></a>什么是索引</h3><p>​      MySQL官方对索引的定义为：索引（Index）是帮助MySQL高效获取数据的数据结构。因此，可以理解为索引是“<strong>排好序的快速查找的数据结构</strong>”。<br>​        除去数据本身之外，数据库还维护着一个满足特定查找算法的数据结构，而且往往以索引文件的形式存储在磁盘上。这些数据结构以某种方式指向数据，这样就可以在这些数据结构的基础上实现高级查找算法，这种数据结构就是索引。<br>​         索引是针对<strong>列</strong>建立索引。但并不可能每一列都建索引。索引并非越多越好。当数据更新了，索引会进行调整。也会很消耗性能。而且MySQL 并不会把所有索引都用上，只会根据其算法挑一个索引用。所以建的准也很重要。<br>​        虽然索引大大提高了查询速度，同时却会降低更新表的速度。如对表进行INSERT、UPDATE和DELETE操作，因为更新表时，MySQL不仅要保存数据，还要保存一下索引文件每次更新添加了索引列的字段。数据库都需要调整因为更新所带来的键值变化后的索引信息。索引只是提高效率的一个因素，如果MySQL有大数据量的表，就需要花时间研究建立最优秀的索引，或优化查询语句。</p><h3 id="索引的类型"><a href="#索引的类型" class="headerlink" title="索引的类型"></a>索引的类型</h3><p>主键索引：设定为主键后数据库会自动建立索引，innoDB为聚簇索引<br>单值索引：即一个索引只包含单个列，一个表可以有多个单列索引<br>唯一索引：索引列的值必须唯一，但允许有空值<br>组合索引：即一个索引包含多个列</p><p>随表一起建索引：<br>CREATE TABLE customer (id INT(10) UNSIGNED  AUTO_INCREMENT ,customer_no VARCHAR(200),customer_name VARCHAR(200),<br>  <font color="blue">PRIMARY KEY(id), （主键索引）</font><br>  <font color="green">KEY (customer_name),  （单值索引）</font><br>  <font color="red">UNIQUE (customer_name),  （唯一索引）</font><br>  <font color="pink">KEY (customer_no,customer_name) (组合索引)</font><br>);</p><h3 id="聚簇索引和非聚簇索引"><a href="#聚簇索引和非聚簇索引" class="headerlink" title="聚簇索引和非聚簇索引"></a>聚簇索引和非聚簇索引</h3><p>​         聚簇索引不是一种索引类型，而是一种数据存储方式。术语‘聚簇’表示数据行和相邻的键值进错的存储在一起。<br>​        很简单记住一句话：找到了索引就找到了需要的数据，那么这个索引就是聚簇索引，所以主键就是聚簇索引，修改聚簇索引其实就是修改主键。<br>​        索引的存储和数据的存储是分离的，也就是说找到了索引但没找到数据，需要根据索引上的值(主键)再次回表查询,非聚簇索引也叫做辅助索引。<br>​        聚簇索引的好处：<br>​        按照聚簇索引排列顺序，查询显示一定范围数据的时候，由于数据都是紧密相连，数据库不用从多个数据块中提取数据，所以节省了大量的io操作。<br>​        聚簇索引的限制：</p><ul><li>对于mysql数据库目前只有innodb数据引擎支持聚簇索引，而Myisam并不支持聚簇索引。<br>由于数据物理存储排序方式只能有一种，所以每个Mysql的表只能有一个聚簇索引。一般情况下就是该表的主键。</li><li>为了充分利用聚簇索引的聚簇的特性，所以innodb表的主键列尽量选用有序的顺序id，而不建议用无序的id，比如uuid这种。（参考聚簇索引的好处。</li></ul><p>这里说明了主键索引为何采用自增的方式：1、业务需求，有序。2、能使用到聚簇索引</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> MySQL </tag>
+            
+            <tag> 技术 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>UML类图中关系</title>
+      <link href="2021/03/22/UML%E7%B1%BB%E5%9B%BE/"/>
+      <url>2021/03/22/UML%E7%B1%BB%E5%9B%BE/</url>
+      
+        <content type="html"><![CDATA[<h4 id="类之间的关系"><a href="#类之间的关系" class="headerlink" title="类之间的关系"></a>类之间的关系</h4><p> 依赖、泛化(继承)、实现、关联、聚合以及组合。<br>继承和实现没有疑问，是类与类或者类与接口间的纵向关系；<br>其他四个的强弱程度依次为：组合&gt;聚合&gt;关联&gt;依赖。</p><h4 id="依赖关系（dependency）"><a href="#依赖关系（dependency）" class="headerlink" title="依赖关系（dependency）"></a>依赖关系（dependency）</h4><p>在类中使用到了对方，那么他们就存在依赖关系。</p><ol><li>类中用到了对方</li><li>是方法的返回类型</li><li>是类的成员属性</li><li>是方法接收的参数类型</li><li>方法中使用到</li></ol><h4 id="泛化关系（generalization）"><a href="#泛化关系（generalization）" class="headerlink" title="泛化关系（generalization）"></a>泛化关系（generalization）</h4><p>泛化关系实际上就是继承关系。是依赖关系的特例(extend)<br>如果A类继承了B类，我们就说A和B存在泛化关系。</p><h4 id="实现关系（realization）"><a href="#实现关系（realization）" class="headerlink" title="实现关系（realization）"></a>实现关系（realization）</h4><p>实现关系是A类实现B类的接口，也是依赖关系的特例</p><h4 id="关联关系（association）"><a href="#关联关系（association）" class="headerlink" title="关联关系（association）"></a>关联关系（association）</h4><p>关联关系是类与类之间的联系，也是依赖关系的特例<br>具有导航性和多重性。</p><h4 id="聚合关系（aggredation）"><a href="#聚合关系（aggredation）" class="headerlink" title="聚合关系（aggredation）"></a>聚合关系（aggredation）</h4><p>表示的是整体和部分的关系，整体与部分可以分开。即_has - a_的关系。聚合关系是关联关系的特例，所以也具有关联的导航性与多重性。</p><h4 id="组合关系（composition）"><a href="#组合关系（composition）" class="headerlink" title="组合关系（composition）"></a>组合关系（composition）</h4><p>整体与部分的关系，整体与部分不可以分开。比如身体与头之间就是组合。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 设计模式 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>关于join查询</title>
+      <link href="2021/03/15/%E5%85%B3%E4%BA%8Ejoin/"/>
+      <url>2021/03/15/%E5%85%B3%E4%BA%8Ejoin/</url>
+      
+        <content type="html"><![CDATA[<h4 id="SQL执行顺序"><a href="#SQL执行顺序" class="headerlink" title="SQL执行顺序"></a>SQL执行顺序</h4><p>我们知道，手写sql语句大概是如下步骤：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">SELECT </span><br><span class="line">&lt;select_list&gt;</span><br><span class="line">FROM</span><br><span class="line">&lt;left_table&gt;&lt;join_type&gt; </span><br><span class="line">JOIN &lt;right_table&gt; ON&lt;right_condition&gt;</span><br><span class="line">WHERE</span><br><span class="line">&lt;where_condition&gt;</span><br><span class="line">GROUP BY</span><br><span class="line">&lt;group_by_list&gt;</span><br><span class="line">HAVING</span><br><span class="line">&lt;having_condition&gt;</span><br><span class="line">ORDER BY</span><br><span class="line">&lt;order_by_condition&gt;</span><br><span class="line">LIMIT &lt;limit_number&gt;</span><br></pre></td></tr></table></figure><p>  随着Mysql版本的更新换代，其优化器也在不断的升级，优化器会分析不同执行顺序产生的性能消耗不同而动态调整执行顺序。比如，经常出现的查询顺序：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">FROM &lt;left_table&gt;</span><br><span class="line">ON &lt;join_condition&gt;</span><br><span class="line">&lt;join_type&gt; JOIN &lt;right_table&gt; </span><br><span class="line">WHERE&lt;where_condition&gt;</span><br><span class="line">GROUP BY &lt;group_by_list&gt;</span><br><span class="line">HAVING &lt;having_condition&gt;</span><br><span class="line">SELECT </span><br><span class="line">&lt;select_list&gt;</span><br><span class="line">ORDER BY</span><br><span class="line">&lt;order_by_condition&gt;</span><br><span class="line">LIMIT &lt;limit_number&gt;</span><br></pre></td></tr></table></figure><h4 id="join图"><a href="#join图" class="headerlink" title="join图"></a>join图</h4><p><img src="../../../Users/xuqin/Typora/1f25a82694f16316.png" alt="image.png"></p><p>共有与独有<br>共有：满足 a.deptid = b.id 的叫共有<br>A独有:  A 表中所有不满足  a.deptid = b.id  连接关系的数据</p><h4 id="七个join"><a href="#七个join" class="headerlink" title="七个join"></a>七个join</h4><p>根据共有和独有，可以知道有七中join关系：</p><ol><li><p>A、B两表共有<br> select * from t_emp a <strong>inner join</strong> t_dept b on a.deptId = b.id;</p></li><li><p>A、B两表共有+A的独有<br> select * from t_emp a <strong>left join</strong> t_dept b on a.deptId = b.id;</p></li><li><p>A、B两表共有+B的独有<br> select * from t_emp a <strong>right join</strong> t_dept b on a.deptId = b.id;</p></li><li><p>A的独有<br>select * from t_emp a <strong>left join</strong> t_dept b on a.deptId = b.id where b.id <strong>is null</strong>; </p></li><li><p>B的独有<br> select * from t_emp a <strong>right join</strong> t_dept b on a.deptId = b.id where a.deptId <strong>is null</strong>;  </p></li><li><p>AB全有<br>#MySQL Full Join的实现 因为MySQL<strong>不支持FULL JOIN</strong>,下面是替代方法<br>#替代方法: left join + union(可去除重复数据)+ right join<br>SELECT * FROM t_emp A LEFT JOIN t_dept B ON A.deptId = B.id<br>UNION<br>SELECT * FROM t_emp A RIGHT JOIN t_dept B ON A.deptId = B.id</p><p>这里因为要联合的缘故，不能考虑到小表驱动大表的情况。只能用right join。要保证查询出来的数字要一致。</p></li><li><p>A的独有+B的独有</p><p>FROM t_emp A <strong>LEFT JOIN</strong> t_dept B ON A.deptId = B.id WHERE B.<code>id</code> <strong>IS NULL</strong><br><strong>UNION</strong><br>SELECT * FROM t_emp A <strong>RIGHT JOIN</strong> t_dept B ON A.deptId = B.id WHERE A.<code>deptId</code> <strong>IS NULL</strong>;</p></li></ol><h4 id="子查询与join查询的理解"><a href="#子查询与join查询的理解" class="headerlink" title="子查询与join查询的理解"></a>子查询与join查询的理解</h4><p>子查询理解：①先知道需要查询并将数据拿出来(若from 后的表也是一个子查询结果)。②在去寻找满足判断条件的数据(where,on,having 后的参数等)。而这些查询条件通常是通过子查询获得的。</p><p>join理解：执行完第一步后的结果为一张新表。在将新表与 t_emp 进行下一步的 left join 关联。<br>先推出如何获得条件，再像算数题一样一步一步往下 join。可以交换顺序，但只能是因为条件间不相互关联时才能交换顺序。</p><p><strong>join 能用到索引，但是子查询出来的表会使索引失效。</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> MySQL </tag>
+            
+            <tag> 技术 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>MySQL语句书写</title>
+      <link href="2020/11/27/mysql%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <url>2020/11/27/mysql%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<h4 id="1-了解数据库和表"><a href="#1-了解数据库和表" class="headerlink" title="1. 了解数据库和表"></a>1. 了解数据库和表</h4><ul><li>连接数据库：<code>mysql -u root -p </code>（使用root权限用户登录数据库）</li><li>查看数据库：<code>show databases;</code> 或者<code>show databases\g </code> （必须用;或\g结束，仅按enter不执行命令）</li><li>选择某一数据库：<code>use case01; </code> (选择case01数据库)</li><li>查看某一数据库内的列表：<code>show tables;</code></li><li>显示表列：两种方式<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">显示users表的表列:</span><br><span class="line">1.show columns from users; </span><br><span class="line">2.describe users;</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">小结：可以使用 help show; 查看允许的show语句。</span><br></pre></td></tr></table></figure></li></ul><h4 id="2-检索数据-select语句"><a href="#2-检索数据-select语句" class="headerlink" title="2. 检索数据(select语句)"></a>2. 检索数据(select语句)</h4><ul><li><p><code>select *  (*被称为通配符)</code>：查到所有的列，<strong>尽量不用，降低检索效率。</strong></p></li><li><p><code>select distinct</code>：只返回不同的值</p></li><li><p><code>select...from... limit 5</code>: limit子句，返回不多于5行</p></li><li><p><code>select...from... limit 5,3</code>: limit5,3指示返回从第5行开始的3行数据。第一位是<strong>开始位置</strong>，第二位是<strong>要检索行数</strong>。</p></li><li><p><code>select...from... limit 4 offset 3</code>:从第3行开始取4行。等价于 limit 3,4.</p></li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注意：检索出来的第一行为0而不是行1。limit 1,1 将检索出第二行而不是第一行.</span><br></pre></td></tr></table></figure><ul><li><code>select user.name from user</code>:完全限定的名字来引用列</li><li><code>select user.name from case01.user</code>：完全限定的表名来引用</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">小结：select检索单个或多个表列及所有表列。limit可以限制查询行数。</span><br></pre></td></tr></table></figure><h4 id="3-排序检索-order-by子句"><a href="#3-排序检索-order-by子句" class="headerlink" title="3. 排序检索(order by子句)"></a>3. 排序检索(order by子句)</h4><ul><li><p><code>select qq from user order by qq;</code>：对qq列以qq列字母排序大小进行排序</p></li><li><p>order by子句也可以用未选择的列作为排序标准。</p><p><code>select qq from user order by email;</code>：对qq列以email列(未选择的列)字母排序大小进行排序</p></li><li><p>对多个列排序 <code>SELECT * FROM user order by gender,age;</code>:对查询结果先按性别排序，再按年龄排序。</p></li><li><p>倒序排序 desc关键字(在order by子句之后)</p><p><code>SELECT * FROM user order by age desc;</code>: 倒序查找年龄(最大的排在最前面)</p><p><code>SELECT * FROM user order by age desc,name;</code>:以降序排序年龄(最大的在前面)，然后再对名字(升序)排序</p><p><code>SELECT * FROM user order by age DESC,name DESC;</code>：以降序排序年龄(最大的在前面)，然后再对名字(降序)排序</p></li></ul><h4 id="4-搜索符合条件数据-where-子句"><a href="#4-搜索符合条件数据-where-子句" class="headerlink" title="4.  搜索符合条件数据(where 子句)"></a>4.  搜索符合条件数据(where 子句)</h4><ul><li><p>where 子句操作符</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x3D;、&lt;、&gt;、&lt;&#x3D;、&gt;&#x3D; 字面意思</span><br><span class="line">&lt;&gt;    不等于</span><br><span class="line">!&#x3D;    不等于</span><br><span class="line">between 在指定的两个值之间</span><br></pre></td></tr></table></figure></li><li><p>检查单个值<br><code>SELECT name,age FROM user where name=&#39;QQx&#39;;</code>:查找name为qqx的user语句。(执行匹配时不区分大小写，所以QQx能与qqx匹配)</p></li><li><p>不匹配检查<br><code>SELECT name,age FROM user where age &lt;&gt; 22 ;</code>: 查询年龄不为22的user语句。</p></li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注意：何时使用引号：单引号用来限定字符串。所以若是查询串类型的值，需要加上引号，数值类型则不需要。</span><br></pre></td></tr></table></figure><ul><li><p>范围值检查(数值类型)<br><code>SELECT name,age FROM user where age BETWEEN 22 and 28</code>:查询年龄在22~28之间的user。</p></li><li><p>空值检查<br><code>SELECT name,age FROM user WHERE name IS NULL</code>：检查name为null值的列</p></li></ul><h4 id="5-数据过滤-where子句中-NOT与IN操作符"><a href="#5-数据过滤-where子句中-NOT与IN操作符" class="headerlink" title="5. 数据过滤(where子句中 NOT与IN操作符)"></a>5. 数据过滤(where子句中 NOT与IN操作符)</h4><ul><li><p>组合where子句(and)<br><code>SELECT name,age,gender FROM user WHERE name =&#39;赵六&#39; AND age&gt;18</code>：查询name为赵六并且年龄18岁以上的user。添加and可以组合多个过滤条件。用来检索满足所有给定条件的行。</p></li><li><p>组合where子句(or)<br><code>SELECT name,age,gender FROM user WHERE name =&#39;赵六&#39; or name=&#39;田甜&#39;</code>：查询name为赵六或者name为田甜的user。添加or用来检索满足匹配任一条件的行。</p></li><li><p>or与and计算次序<br><code>SELECT name,age,gender FROM user WHERE name =&#39;赵六&#39; or name=&#39;田甜&#39; AND age&gt;19</code>查询name为赵六 或者 name为田甜并且年龄18岁以上的user。<br><code>SELECT name,age,gender FROM user WHERE (name =&#39;赵六&#39; or name=&#39;田甜&#39; )AND age&gt;19</code> 查询name为赵六或者 name为田甜  并且年龄18岁都在以上的user。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注意：sql与多数语言一样，优先处理and(优先级 &amp;&amp;&gt;||)。所以在同时使用or、and操作符时，应当加上括号，消除歧义。</span><br></pre></td></tr></table></figure></li><li><p>IN操作符<br>  in操作符可以完成or相同功能，即用来指定要匹配值的清单的关键字时，功能相当。<br><code>SELECT id, name,age,gender FROM user WHERE name in (&#39;qqx&#39;,&#39;赵六&#39;,&#39;田甜&#39;)</code> :查询name在 (  ) 范围内的user。</p></li><li><p>not操作符<br><code>SELECT id, name,age,gender FROM user WHERE name NOT IN (&#39;qqx&#39;,&#39;赵六&#39;,&#39;田甜&#39;)</code>:查询name不在 (  ) 范围内的user。</p></li></ul><h4 id="6-通配符过滤-like操作符"><a href="#6-通配符过滤-like操作符" class="headerlink" title="6. 通配符过滤(like操作符)"></a>6. 通配符过滤(like操作符)</h4><ul><li><p>百分号(%)通配符：任何字符出现任意次数<br><code>SELECT id, name,age,gender FROM user WHERE name LIKE &#39;赵%&#39;</code>：查找name中以’赵’开头的词。(搜索可以不区分大小写)<br><code>SELECT id, name,qq FROM user WHERE qq LIKE &#39;%13%&#39;</code>：查找qq中包含13文本的值的所有user行。<br><code>SELECT id, name,qq FROM user WHERE qq LIKE &#39;1%3&#39;</code>查找qq中以1开头，3结尾的文本的值 的所有user行。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注意：like不能匹配值为null的行。</span><br></pre></td></tr></table></figure></li><li><p>下划线( _ ）通配符：只能匹配一个字符<br><code>SELECT id, name FROM user WHERE name LIKE &#39;_六&#39;</code>：查找缺失第一个字符且第二个字符为六的user行<br><code>SELECT id, nameFROM user WHERE name LIKE &#39;%_六%&#39; </code></p></li></ul><h4 id="7-正则表达式搜索"><a href="#7-正则表达式搜索" class="headerlink" title="7. 正则表达式搜索"></a>7. 正则表达式搜索</h4><ul><li>简单匹配<br><code>SELECT id, name FROM user WHERE name REGEXP &#39;赵六&#39;</code>:检索含有文本’赵六’的所有user行 (等同于 like ‘%赵六%’)</li></ul><p><code>SELECT id, name FROM user WHERE name REGEXP &#39;.六&#39;</code>: .表示匹配任意一个字符</p><ul><li>进行or匹配<br><code>SELECT id, name FROM user WHERE name REGEXP &#39;赵|刘&#39;</code>：检索name中包含赵或刘文本的user行。|为正则表达式中的OR操作符。也可以给出两个以上的|。如 ‘刘|赵|王’</li></ul><p><code>SELECT id, name FROM user WHERE name REGEXP &#39;[赵刘]六&#39;</code>检索name中赵或刘且包含六的user行。可以理解为’赵|刘’ and 含有’六’。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[赵刘]六 其实是[赵|刘]六的缩写。加上[]是用来定义or语句。如果没有[],则变成了赵|刘六。这会引起歧义，事实上mysql的确会误会。</span><br><span class="line">可以把]之后想象有一个and。即[赵or刘] and 六。这其实就是or与and的计算次序问题。</span><br></pre></td></tr></table></figure><ul><li><p>匹配范围(数字范围，字符范围等)<br><code>SELECT id, name,qq FROM user WHERE qq REGEXP &#39;[1-5]66&#39;</code> 查找qq中以[1-5]范围内的文本为开头，含有66文本的user行。</p></li><li><p>匹配特殊字符(匹配  . 、 _ 、[]、|等 )<br>  使用\转义字符<br><code>SELECT id, name,qq FROM user WHERE qq REGEXP &#39;\\.&#39;:</code>查询qq列中含有 . 的user行 </p></li><li><p>匹配多个实例 </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">*     0个或多个匹配</span><br><span class="line">+1个或多个匹配(相当于&#123;1,&#125;)   </span><br><span class="line">?     0个或1个匹配(相当于&#123;0,1&#125;)</span><br><span class="line">&#123;n&#125;   指定数目的匹配</span><br><span class="line">&#123;n,&#125; 不少于n个数目的匹配</span><br><span class="line">&#123;n,m&#125;匹配n到m的范围(m不超过255)</span><br></pre></td></tr></table></figure></li></ul><p><code>SELECT id, name,qq FROM user WHERE name REGEXP &#39;([aq]haa?)&#39;</code>:查找name列中以a或q开头，含有ha或者<code>haa</code>(?使得a可选)的user行</p><ul><li>定位符<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">^ 文本的开始</span><br><span class="line">$ 文本的结尾</span><br><span class="line">[[:&lt;:]]词的开始</span><br><span class="line">[[:&gt;:]]词的结尾</span><br></pre></td></tr></table></figure><code>SELECT id, name,qq FROM user WHERE name REGEXP &#39;[六福]$&#39;</code>查询name列以六或者福为结尾的user行</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. ^ 有两种用途。[]中否定集合，还可以指串的开始</span><br><span class="line">2. like与regexp的不同在于 like匹配整个串而regexp匹配子串。</span><br><span class="line">若regexp利用 ^开头，$结尾定义表达式，则等价于like。</span><br></pre></td></tr></table></figure><h4 id="8-计算字段"><a href="#8-计算字段" class="headerlink" title="8. 计算字段"></a>8. 计算字段</h4><ul><li><p>拼接字段<br><code>select CONCAT(id,&#39;(&#39;, name,&#39;)&#39;) from user ORDER BY id;</code>：将id与(name)拼接。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql拼接串使用的是concat函数，而其他数据库多数使用+或||实现。</span><br></pre></td></tr></table></figure></li><li><p>去除空格(RTrim()（右去除）、LTrim()（左去除）、Trim()（两边去除）)<br><code>select CONCAT(id,&#39;(&#39;, RTrim(name),&#39;)&#39;) from user ORDER BY id;</code> 去除name右边的所有空格后进行拼接</p></li><li><p>AS关键字<br><code>select CONCAT(id,&#39;(&#39;,RTrim(name),&#39;)&#39;) AS id_name from user ORDER BY id;</code> （实际对表没有影响） 返回一个字段为id_name 的字段，放置操作的结果</p></li><li><p>算术运算</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql支持基本算术操作符+-*&#x2F;，圆括号()可以用来区分顺序</span><br></pre></td></tr></table></figure><p><code>select id,quantity,price,quantity*price AS quantity_price from order where id=1000</code> 将quantity * price看做是一个字段。</p></li></ul><h4 id="9-使用函数"><a href="#9-使用函数" class="headerlink" title="9.使用函数"></a>9.使用函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">函数没有sql的可移植性强。不同的数据库支持不同的函数，各有差异。</span><br><span class="line">所以用函数时，需写好注释。</span><br></pre></td></tr></table></figure><ul><li>文本处理函数<br><code>select CONCAT(id,&#39;(&#39;,upper(name),&#39;)&#39;) AS id_name from user ORDER BY id</code> 将name转换成大写</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">常见的文本处理函数</span><br><span class="line">Left()返回串左边的字符</span><br><span class="line">Right()返回串右边的字符</span><br><span class="line">Lower() 将串转换成小写</span><br><span class="line">Upper()        将串转换成大写</span><br><span class="line">LTrim() 去除串左边的空格</span><br><span class="line">RTrim() 去除串右边的空格</span><br><span class="line">Length()返回串的长度</span><br><span class="line">Locate()找出串的一个子串</span><br><span class="line">Soundex() 返回串的Soundex值</span><br><span class="line">SubString()      返回子串的字符</span><br><span class="line"></span><br><span class="line">其中，soundex是一个将任何文本串转换成描述其语音表示的字母数字模式的算法。</span><br><span class="line">考虑到类似的发音字符和音节，使得能对串进行发音比较而不是字符比较。</span><br></pre></td></tr></table></figure><p><code>select id,name from user where soundex(name)=soundex(&#39;李红&#39;);</code>:匹配发音类似于李红的名字</p><ul><li>日期和时间处理函数<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">AddDate() 增加一个日期（天、周等）</span><br><span class="line">AddTime() 增加一个时间（时、分等）</span><br><span class="line">CurDate()返回当前日期</span><br><span class="line">CurTime()         返回当前时间</span><br><span class="line">Date()    返回日期时间的日期部分</span><br><span class="line">DateDiff()       计算两个日期之差</span><br><span class="line">Date_Add()          高度灵活的日期运算函数</span><br><span class="line">Date_Format()         返回一个格式化的日期或时间串</span><br><span class="line">Day()        返回一个日期的天数部分</span><br><span class="line">DayofWeek()  对于一个日期，返回对应的星期几</span><br><span class="line">Hour()        返回一个时间的小时部分</span><br><span class="line">Minute()    返回一个时间的分钟部分</span><br><span class="line">Month()          返回一个日期的月份部分</span><br><span class="line">NoW()                返回当前日期和时间</span><br><span class="line">Second()              返回一个时间的秒部分</span><br><span class="line">Time()                 返回一个日期时间的时间部分</span><br><span class="line">Year()      返回一个日期的年份部分</span><br></pre></td></tr></table></figure></li></ul><p><code>SELECT id,create_time from discuss_post where DATE(create_time)=&#39;2020-04-04&#39;</code> 查询给定日期部分(部分比较列中日期，因为列中可能是yyyy-MM-dd HH:mm:ss格式)</p><p><code>SELECT id,create_time from discuss_post where Year(create_time)=2019 AND Month(create_time)=7</code>:查询2019年七月的记录。</p><ul><li>数值处理函数<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Abs()            返回一个数的绝对值</span><br><span class="line">Cos()      返回一个角度的余弦</span><br><span class="line">Exp()      返回一个数的指数值</span><br><span class="line">Mod()返回除操作的余数</span><br><span class="line">Pi()  返回圆周率</span><br><span class="line">Rand() 返回一个随机数</span><br><span class="line">Sin() 返回一个角度的正弦</span><br><span class="line">Sqrt()  返回一个数的平方根</span><br><span class="line">Tan()返回一个角度的正切</span><br></pre></td></tr></table></figure></li></ul><h4 id="10-聚集函数"><a href="#10-聚集函数" class="headerlink" title="10. 聚集函数"></a>10. 聚集函数</h4><p>我们经常需要汇总数据而不用把它们实际检索出来，为此MySQL提供了专门的函数。使用这些函数，MySQL查询可用于检索数据，以便分析和报表生成。这种类型的检索例子有以下几种。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">AVG()返回某列的平均值</span><br><span class="line">COUNT()返回某列的行数</span><br><span class="line">MAX()返回某列的最大值</span><br><span class="line">MIN()返回某列的最小值</span><br><span class="line">SUM()返回某列值之和</span><br><span class="line"></span><br></pre></td></tr></table></figure><ul><li><p>AVG() 求平均值<br><code>SELECT AVG(age) from user</code>:用户的平均年龄<br><code>SELECT AVG(age) from user where name=&#39;赵六&#39;</code>:name为赵六的人的平均年龄</p></li><li><p>COUNT()  计数<br><code>select count(*) from user</code>:对所有行计数，不管有无null值<br><code>select count(email) from user</code>:对特定行计数，null不计数。</p></li><li><p>MAX() 求最大值<br><code>select max(age) from user</code>：查询最大值</p></li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">对非数值数据使用MAX()与MIN()：</span><br><span class="line">虽然MAX() 一般用来找出最大的数值或日期值，但MySQL允许将它用来返回任意列中的最大值，包括返回文本列中的最大值。在用于文本数据时，如果数据按相应的列排序，则MAX（）返回最后一行。</span><br><span class="line">MAX()忽略列值为null的行</span><br><span class="line">MIN()与MAX()用法一样。</span><br></pre></td></tr></table></figure><ul><li><p>SUM() 求和</p><ul><li>计算指定列值的和：<code>SELECT SUM(age) from user where name=&#39;赵六&#39;</code>:对姓名为赵六的user年龄求和</li><li>合计计算值：<code>select sum(quantity*price) AS total_price from order where id=1000</code>：合计每项物品的价格，得出总价格</li></ul></li><li><p>组合聚集函数</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select COUNT(*) as user_nums, </span><br><span class="line">MIN(age) as age_min,</span><br><span class="line">MAX(age) as age_max,</span><br><span class="line">AVG(age) as avg_age</span><br><span class="line">from user;</span><br></pre></td></tr></table></figure><h4 id="11-分组数据"><a href="#11-分组数据" class="headerlink" title="11.分组数据"></a>11.分组数据</h4></li><li><p>group by子句<br><code>select gender,COUNT(*) from user GROUP BY gender</code>:以性别分组</p></li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">使用ROLLUP：</span><br><span class="line">使用with rollup关键字，可以得到每个分组以及每个分组汇总级别(针对每个分组)的值</span><br></pre></td></tr></table></figure><ul><li>having子句<br>having与where作用类似，语法和where相同。区别是having过滤分组而where过滤行。或者说，where是在分组前进行过滤，而having是在分组后进行过滤。where排除的行不包括在分组中。</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">select id,count(*) AS num_prods </span><br><span class="line">from products</span><br><span class="line">where price&gt;&#x3D;10</span><br><span class="line">group by id</span><br><span class="line">having count(*) &gt; 2</span><br><span class="line"></span><br><span class="line">where先过滤行，小于10的行数先过滤，不进行分组；然后再进行having分组，统计2以上的分组。</span><br></pre></td></tr></table></figure><ul><li>分组与排序(order by与group by)<ul><li>使用group by时，应加上order by子句。因为group by排序不一定正确。</li><li>group by 如果与聚集函数一起使用列(或表达式)，则必须使用</li><li>group by 只可能使用选择列或表达式列，而且必须使用每个选择列表达式</li></ul></li></ul><h4 id="12-使用子查询"><a href="#12-使用子查询" class="headerlink" title="12. 使用子查询"></a>12. 使用子查询</h4><p>mysql中，子查询是从内向外处理。</p><ul><li><p>利用子查询进行过滤</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SELECT cust_name,cust_contact </span><br><span class="line">FROM customers </span><br><span class="line">WHERE cuSt_id IN(SELECT cuSt_id </span><br><span class="line">FROM orders </span><br><span class="line">WHERE order_num IN(SELECT order_num </span><br><span class="line">FROM orderitems </span><br><span class="line">WHERE prod_id&#x3D;&quot;TNT2&#39;));</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>需要注意的是select语句具有与where子句中相同数目的列。</p></li><li><p>作为计算字段使用子查询</p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> MySQL </tag>
+            
+            <tag> 技术 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>踩坑日常——博客搭建(Hexo+node.js)</title>
+      <link href="2020/10/23/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA(Hexo+node.js)/"/>
+      <url>2020/10/23/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA(Hexo+node.js)/</url>
+      
+        <content type="html"><![CDATA[<p>搭建一个Hexo静态博客所需要安装的有 Node.js和Hexo以及git环境。上传的(免费)服务器可以选择github、gitee、coding等。我选择的是<strong>gitee</strong>。我的电脑环境是win10，所以安装git之后，在git bash里面可以用Linux命令。安装的步骤教程网上有很多，这里我就不赘述。主要记录一下配置过程中所遇到的几处<strong>问题</strong>以及我解决的方案(不一定是<strong>最优解</strong>)。</p><hr><h4 id="一：标签about里面的内容写出来不能识别"><a href="#一：标签about里面的内容写出来不能识别" class="headerlink" title="一：标签about里面的内容写出来不能识别"></a>一：标签about里面的内容写出来不能识别</h4><p>在按照网上大部分配置首页，分类，标签这种页面的步骤配置之后，</p><p>我发现about这一栏我出现了问题。于是去找关于文章写作的相关命令。</p><p>排查错误之后，发现是</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">title: about</span><br><span class="line">type: about</span><br><span class="line">layout: &quot;about&quot;</span><br></pre></td></tr></table></figure><p>这一部分的错误。原因是yml的格式，<strong>需要在：之后打上空格。</strong></p><p>所以，不论是配置类，如<strong>_config.yml</strong>文件还是在写博客的<strong>md</strong>文件中，冒号之后需要配置的记得来一个空格。</p><hr><h4 id="二、本地文件不能与gitee上同步"><a href="#二、本地文件不能与gitee上同步" class="headerlink" title="二、本地文件不能与gitee上同步"></a>二、本地文件不能与gitee上同步</h4><p> 最大的问题就是这个了。为了解决这个问题花了两天时间…</p><p>一开始配置好的时候就一股脑的上传了，然后改主题，写了测试博客。在本地运行<strong>hexo c (清除缓存)**和</strong>hexo g(生成静态文件)** 以及 <strong>hexo s(本地运行)</strong></p><p>之后，在本地输入<strong>localhost:4000</strong>(默认此端口)之后就可以进行博客的预览了。这几步进行下来比较顺利。可是在部署在远程服务器这一步出现了问题。</p><p>我根据主题改成的自己的博客发布上去之后，访问到的还是之前的主题。也就是说，我的页面并没有更改。查找了一些相关博文以及问答之后，我进行了重新部署。具体是根据这篇 <a href="https://blog.csdn.net/GAI159/article/details/105128186">https://blog.csdn.net/GAI159/article/details/105128186</a>对于分支进行了修改。</p><p>一般情况下，在git中使用命令hexo c &amp;&amp; hexo g - d发布上去就行了。但是我试了很多也找了好多博文跟着做也不行。</p><p>最后解决方案：更新博客或者删除之后，hexo g-d(这样上传到gitee的master分支上)，然后再在gitee pages服务那里，点击更新重新部署。</p><p>这样很麻烦，目前的问题就是发布在gitee上是有更新的，但是网站不能更新。暂时的方法只有这样了。</p><hr><h4 id="三、使用个人域名"><a href="#三、使用个人域名" class="headerlink" title="三、使用个人域名"></a>三、使用个人域名</h4><p><a href="https://xq2000.gitee.io/">https://xq2000.gitee.io</a> 这样的名字不太好听(gitee提供的免费服务器)。所以我决定申请一个域名。这里又是一个摸石头过河的过程……</p><p>首先，我所知道的平台就是github、gitee以及coding(自建服务器不考虑)。本来我的代码仓库放在gitee上的，国内毕竟访问什么的不受限制。所以当我兴冲冲的申请好域名之后……gitee上面居然要升级Gitee Page Pro才能加入个人域名(90多一年呢……)于是我又去coding。在coding上，我们发布博客除了配置个人域名，添加域名解析记录以及申请SSL证书以外，还需要开启CDN功能。</p><h5 id="CDN功能"><a href="#CDN功能" class="headerlink" title="CDN功能"></a>CDN功能</h5><p>CDN功能开启有相应的计费说明和文档(没错，需要付费。不过有送的128G流量包)。域名接入 CDN 后，系统会自动分配一个以 <code>.cdn.dnsv1.com</code> 为后缀的 CNAME 域名，可在 CDN 控制台 <a href="https://console.cloud.tencent.com/cdn/domains">域名管理页</a> 查看。CNAME 域名不能直接访问，需要在域名服务提供商处完成 CNAME 配置。</p><h5 id="自定义域名添加"><a href="#自定义域名添加" class="headerlink" title="自定义域名添加"></a>自定义域名添加</h5><p>CDN开启后，就可以加入自定义域名了。CDN的服务还没有开启，需要接入域名。可以先配置域名，之后接入CDN。</p><p>输入你的域名，绑定即可。添加好个人域名之后，会自动去申请SSL证书。</p><p><img src="https://s1.ax1x.com/2020/10/02/0ldgF1.png" alt="0ldgF1.png"></p><hr><h5 id="添加域名解析记录"><a href="#添加域名解析记录" class="headerlink" title="添加域名解析记录"></a>添加域名解析记录</h5><p>域名添加好之后，需要去为域名添加CNAME记录。<img src="https://s1.ax1x.com/2020/10/02/0ld9G6.png" alt="0ld9G6.png"></p><p><img src="https://s1.ax1x.com/2020/10/02/0ldXSf.png" alt="0ldXSf.png"></p><p>这里的记录值(也就是CNAME指向)是需要复制到CNAME记录中去的。</p><p>显示审核中就是你需要去添加的CNAME记录。</p><p>去到对应的域名托管处进行添加。我用的是腾讯云。</p><p><img src="https://s1.ax1x.com/2020/10/02/0ldGZj.png" alt="0ldGZj.png"></p><p>主机记录填写之前填写的域名前缀（例如：blog.okok.host 填写 blog），也可以填上**@<strong>。记录类型填写 **CNAME</strong>，记录值填写域名列表中的 CNAME 指向(也是上面画红线的记录值)（例如：niqux.top.cdn.dnv1.com）</p><h5 id="SSL证书"><a href="#SSL证书" class="headerlink" title="SSL证书"></a>SSL证书</h5><p>配置好之后，如果你的域名服务状态和DNS状态显示不正常，那么就需要申请SSL证书。(在配置个人域名那一步的时候，会自动去申请SSL证书)。这里显示待验证状态的，就是刚才申请的域名所对应的SSL证书了。我是在腾讯云上申请的域名，所以相应的SSL证书是在腾讯云上发布的。一般一个工作日就可以了。</p><p><img src="https://s1.ax1x.com/2020/10/02/0ldRW6.png" alt="0ldRW6.png"></p><hr><p>所有都配置好没有错误之后，重新部署你的项目即可。</p><p>详细可在coding帮助文档查找：<a href="https://help.coding.net/docs/cd/static-website-v2.html?_ga=2.68172817.1030326411.1601571268-1149512744.1601571268#%E6%B7%BB%E5%8A%A0%E8%A7%A3%E6%9E%90%E8%AE%B0%E5%BD%95">https://help.coding.net/docs/cd/static-website-v2.html?_ga=2.68172817.1030326411.1601571268-1149512744.1601571268#%E6%B7%BB%E5%8A%A0%E8%A7%A3%E6%9E%90%E8%AE%B0%E5%BD%95</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 技术 </tag>
+            
+            <tag> 踩坑日常 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Spring学习笔记 之一</title>
+      <link href="2020/09/17/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20%E7%AC%AC%E4%B8%80%E7%AF%87/"/>
+      <url>2020/09/17/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20%E7%AC%AC%E4%B8%80%E7%AF%87/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Spring的优势"><a href="#Spring的优势" class="headerlink" title="Spring的优势"></a>Spring的优势</h2><ol><li>低侵入式设计，代码污染极低</li><li>独立于各种应用服务器，基于Spring框架的应用，可以真正实现Write Once,Run Anywhere的承诺</li><li>Spring的DI机制降低了业务对象替换的复杂性，提高了组件之间的解耦</li><li>Spring的AOP支持允许将一些通用任务如安全、事务、日志等进行集中式管理，从而提供了更好的复用</li><li>Spring的ORM和DAO提供了与第三方持久层框架的良好整合，并简化了底层的数据库访问</li><li>Spring并不强制应用完全依赖于Spring，开发者可自由选用Spring框架的部分或全部       </li></ol><h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>首先，程序讲究的是<strong>低耦合，高内聚</strong></p><ul><li>解耦的方式：工厂模式解耦</li><li>工厂：负责从容器中获取指定对象的类</li><li>Bean Factory：一个创建Bean对象的工厂</li></ul><ol><li>Bean的含义:是可重用组件的含义。</li><li>javaBean与实体类之间的区别<br>javaBean：用java语言编写的可重用组件<br>javabean &gt; 实体类</li></ol><ul><li><p>之前是采用new的方式，是主动的<br><img src="../../../Users/xuqin/Typora/eff3cd7ca28f2580.png" alt="image-20200908215200562.png"></p></li><li><p>使用工厂之后，需要工厂为程序查找或创建对象，是被动的。<br><img src="../../../Users/xuqin/Typora/2c4c3e70d8be25c9.png" alt="image-20200908215244947.png"></p></li></ul><p>这种被动接收的方式获取对象的思想就是<strong>控制反转</strong>，它是 spring 框架的核心之一。 </p><h2 id="控制反转-IoC"><a href="#控制反转-IoC" class="headerlink" title="控制反转(IoC)"></a>控制反转(IoC)</h2><p><strong>控制反转</strong>（Inversion of Control，缩写为<strong>IoC</strong>），是面向对象编程)中的一种设计原则，可以用来减低计算机代码之间的耦合度。</p><p>Spring Framework提供IoC容器。</p><p>明确 Ioc的作用：  <strong>削减计算机程序的耦合(解除我们代码中的依赖关系)。</strong> </p><p>是<strong>削减</strong>，而不能完全去除耦合。</p><h3 id="IoC包括依赖注入和依赖查找两种方式-重点"><a href="#IoC包括依赖注入和依赖查找两种方式-重点" class="headerlink" title="IoC包括依赖注入和依赖查找两种方式(重点)"></a>IoC包括<strong>依赖注入</strong>和<strong>依赖查找</strong>两种方式(重点)</h3><p>1.核心容器的两个接口BeanFactory和 ApplicationContext 的区别：</p><pre><code>     BeanFactory 才是 Spring 容器中的顶层接口。     ApplicationContext 是它的子接口。</code></pre><p>​    他们创建对象的时间点不一样： </p><ul><li><p>ApplicationContext：单例对象适用(实际采用此接口)<br>它在构建核心容器时，创建对象采用的策略是立刻加载的方式，</p><p>也就是说，只要一读取配置文件，就会创建出配置文件中配置的对象。</p></li><li><p>BeanFactory：             多例对象适用<br>它在构建核心容器时，创建对象采取的策略是采用延迟加载的方式，</p><p>也就是说，什么时候根据id获取对象，需要创建对象的时候才会真正的去创建对象。</p></li></ul><h3 id="ApplicationContext-接口的实现类"><a href="#ApplicationContext-接口的实现类" class="headerlink" title="ApplicationContext 接口的实现类"></a>ApplicationContext 接口的实现类</h3><p>ClassPathXmlApplicationContext：  它是从类的根路径下加载配置文件  (推荐使用这种) </p><p>FileSystemXmlApplicationContext：  它是从磁盘路径上加载配置文件，配置文件可以在磁盘的任意位置。</p><p> AnnotationConfigApplicationContext: 当我们使用注解配置容器对象时，需要使用此类来创建 spring 容器。它用来读取注解。 </p><h2 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h2><p>@Component 标注一个类为Spring容器的Bean，（把普通pojo实例化到spring容器中，相当于配置文件中的<bean id="" class=""/>）</p><p>@Controller(一般用于表现层)</p><p>@Service (一般用于业务层)</p><p>@Repository(一般用于持久层) 用于注入数据</p><p>@Autowired 实现依赖注入，按by type自动注入</p><p>@Qualifier (给字段注入时不能独立使用，必须和 @Autowire 一起使用；但是给方法参数注入时，可以独立使用)</p><p>@Resource 实现依赖注入，按byName自动注入</p><p>@Value 通过注解将常量、配置文件中的值、其他bean的属性值注入到变量中，作为变量的初始值</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 框架 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Spring </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
 </search>

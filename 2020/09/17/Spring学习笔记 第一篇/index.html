@@ -21,20 +21,23 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="谁辜负过自己，说不上可惜">
-<meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="http://example.com/archives/categories/index.html">
+  <meta name="description" content="初识spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring学习笔记 之一">
+<meta property="og:url" content="http://example.com/2020/09/17/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20%E7%AC%AC%E4%B8%80%E7%AF%87/index.html">
 <meta property="og:site_name" content="Gravity X">
-<meta property="og:description" content="谁辜负过自己，说不上可惜">
+<meta property="og:description" content="初识spring">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-09-27T05:24:25.000Z">
-<meta property="article:modified_time" content="2020-10-23T08:32:06.956Z">
+<meta property="og:image" content="http://example.com/2020/Users/xuqin/Typora/eff3cd7ca28f2580.png">
+<meta property="og:image" content="http://example.com/2020/Users/xuqin/Typora/2c4c3e70d8be25c9.png">
+<meta property="article:published_time" content="2020-09-17T05:23:19.000Z">
+<meta property="article:modified_time" content="2021-08-26T16:18:46.255Z">
 <meta property="article:author" content="XuQ">
-<meta property="article:tag" content="学习,代码,博客,生活">
+<meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/Users/xuqin/Typora/eff3cd7ca28f2580.png">
 
-<link rel="canonical" href="http://example.com/archives/categories/">
+<link rel="canonical" href="http://example.com/2020/09/17/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20%E7%AC%AC%E4%B8%80%E7%AF%87/">
 
 
 <script id="page-configurations">
@@ -42,13 +45,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>categories | Gravity X
-</title>
+  <title>Spring学习笔记 之一 | Gravity X</title>
   
 
 
@@ -191,67 +193,234 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
-          <div class="content page posts-expand">
+          <div class="content post posts-expand">
             
 
     
-    
-    
-    <div class="post-block" lang="zh-CN">
-      <header class="post-header">
-
-<h1 class="post-title" itemprop="name headline">categories
-</h1>
-
-<div class="post-meta">
   
-  <ul class="breadcrumb">
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/17/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20%E7%AC%AC%E4%B8%80%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avater.jpg">
+      <meta itemprop="name" content="XuQ">
+      <meta itemprop="description" content="谁辜负过自己，说不上可惜">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gravity X">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spring学习笔记 之一
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-17 13:23:19" itemprop="dateCreated datePublished" datetime="2020-09-17T13:23:19+08:00">2020-09-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%A1%86%E6%9E%B6/" itemprop="url" rel="index"><span itemprop="name">框架</span></a>
+                </span>
+            </span>
+
           
-            <li><a href="/archives/">ARCHIVES</a></li>
-          <li>CATEGORIES</li>
-        
-  </ul>
+            <span id="/2020/09/17/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20%E7%AC%AC%E4%B8%80%E7%AF%87/" class="post-meta-item leancloud_visitors" data-flag-title="Spring学习笔记 之一" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/09/17/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20%E7%AC%AC%E4%B8%80%E7%AF%87/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/17/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20%E7%AC%AC%E4%B8%80%E7%AF%87/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+            <div class="post-description">初识spring</div>
 
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Spring的优势"><a href="#Spring的优势" class="headerlink" title="Spring的优势"></a>Spring的优势</h2><ol>
+<li>低侵入式设计，代码污染极低</li>
+<li>独立于各种应用服务器，基于Spring框架的应用，可以真正实现Write Once,Run Anywhere的承诺</li>
+<li>Spring的DI机制降低了业务对象替换的复杂性，提高了组件之间的解耦</li>
+<li>Spring的AOP支持允许将一些通用任务如安全、事务、日志等进行集中式管理，从而提供了更好的复用</li>
+<li>Spring的ORM和DAO提供了与第三方持久层框架的良好整合，并简化了底层的数据库访问</li>
+<li>Spring并不强制应用完全依赖于Spring，开发者可自由选用Spring框架的部分或全部       </li>
+</ol>
+<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>首先，程序讲究的是<strong>低耦合，高内聚</strong></p>
+<ul>
+<li>解耦的方式：工厂模式解耦</li>
+<li>工厂：负责从容器中获取指定对象的类</li>
+<li>Bean Factory：一个创建Bean对象的工厂</li>
+</ul>
+<ol>
+<li>Bean的含义:是可重用组件的含义。</li>
+<li>javaBean与实体类之间的区别<br>javaBean：用java语言编写的可重用组件<br>javabean &gt; 实体类</li>
+</ol>
+<ul>
+<li><p>之前是采用new的方式，是主动的<br><img src="../../../Users/xuqin/Typora/eff3cd7ca28f2580.png" alt="image-20200908215200562.png"></p>
+</li>
+<li><p>使用工厂之后，需要工厂为程序查找或创建对象，是被动的。<br><img src="../../../Users/xuqin/Typora/2c4c3e70d8be25c9.png" alt="image-20200908215244947.png"></p>
+</li>
+</ul>
+<p>这种被动接收的方式获取对象的思想就是<strong>控制反转</strong>，它是 spring 框架的核心之一。 </p>
+<h2 id="控制反转-IoC"><a href="#控制反转-IoC" class="headerlink" title="控制反转(IoC)"></a>控制反转(IoC)</h2><p><strong>控制反转</strong>（Inversion of Control，缩写为<strong>IoC</strong>），是面向对象编程)中的一种设计原则，可以用来减低计算机代码之间的耦合度。</p>
+<p>Spring Framework提供IoC容器。</p>
+<p>明确 Ioc的作用：  <strong>削减计算机程序的耦合(解除我们代码中的依赖关系)。</strong> </p>
+<p>是<strong>削减</strong>，而不能完全去除耦合。</p>
+<h3 id="IoC包括依赖注入和依赖查找两种方式-重点"><a href="#IoC包括依赖注入和依赖查找两种方式-重点" class="headerlink" title="IoC包括依赖注入和依赖查找两种方式(重点)"></a>IoC包括<strong>依赖注入</strong>和<strong>依赖查找</strong>两种方式(重点)</h3><p>1.核心容器的两个接口BeanFactory和 ApplicationContext 的区别：</p>
+<pre><code>     BeanFactory 才是 Spring 容器中的顶层接口。
+
+     ApplicationContext 是它的子接口。</code></pre>
+<p>​    他们创建对象的时间点不一样： </p>
+<ul>
+<li><p>ApplicationContext：单例对象适用(实际采用此接口)<br>它在构建核心容器时，创建对象采用的策略是立刻加载的方式，</p>
+<p>也就是说，只要一读取配置文件，就会创建出配置文件中配置的对象。</p>
+</li>
+<li><p>BeanFactory：             多例对象适用<br>它在构建核心容器时，创建对象采取的策略是采用延迟加载的方式，</p>
+<p>也就是说，什么时候根据id获取对象，需要创建对象的时候才会真正的去创建对象。</p>
+</li>
+</ul>
+<h3 id="ApplicationContext-接口的实现类"><a href="#ApplicationContext-接口的实现类" class="headerlink" title="ApplicationContext 接口的实现类"></a>ApplicationContext 接口的实现类</h3><p>ClassPathXmlApplicationContext：  它是从类的根路径下加载配置文件  (推荐使用这种) </p>
+<p>FileSystemXmlApplicationContext：  它是从磁盘路径上加载配置文件，配置文件可以在磁盘的任意位置。</p>
+<p> AnnotationConfigApplicationContext: 当我们使用注解配置容器对象时，需要使用此类来创建 spring 容器。它用来读取注解。 </p>
+<h2 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h2><p>@Component 标注一个类为Spring容器的Bean，（把普通pojo实例化到spring容器中，相当于配置文件中的<bean id="" class=""/>）</p>
+<p>@Controller(一般用于表现层)</p>
+<p>@Service (一般用于业务层)</p>
+<p>@Repository(一般用于持久层) 用于注入数据</p>
+<p>@Autowired 实现依赖注入，按by type自动注入</p>
+<p>@Qualifier (给字段注入时不能独立使用，必须和 @Autowire 一起使用；但是给方法参数注入时，可以独立使用)</p>
+<p>@Resource 实现依赖注入，按byName自动注入</p>
+<p>@Value 通过注解将常量、配置文件中的值、其他bean的属性值注入到变量中，作为变量的初始值</p>
+
+    </div>
+
+    
+    
+    
+
+<div>
+		  
+			<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
 </div>
-
-</header>
-
+		  
+		</div>
+        <div class="reward-container">
+  <div>谢谢你请我吃糖果</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
       
-      
-      
-      <div class="post-body">
-          <div class="category-all-page">
-            <div class="category-all-title">
-              目前共计 4 个分类
-            </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A1%86%E6%9E%B6/">框架</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><span class="category-list-count">1</span></li></ul>
-            </div>
-          </div>
-        
+      <div style="display: inline-block;">
+        <img src="/images/wechat.jpg" alt="XuQ 微信支付">
+        <p>微信支付</p>
       </div>
       
-      
-      
-    </div>
-    
-  <ul class="breadcrumb">
-          
-            <li><a href="/archives/">ARCHIVES</a></li>
-          <li>CATEGORIES</li>
-        
-  </ul>
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="XuQ 支付宝">
+        <p>支付宝</p>
+      </div>
 
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>XuQ
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2020/09/17/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20%E7%AC%AC%E4%B8%80%E7%AF%87/" title="Spring学习笔记 之一">http://example.com/2020/09/17/Spring学习笔记 第一篇/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/23/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA(Hexo+node.js)/" rel="next" title="踩坑日常——博客搭建(Hexo+node.js)">
+      踩坑日常——博客搭建(Hexo+node.js) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
     
-    
-    
+	
+  </article>
+  
+  
+  
+
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -298,6 +467,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-number">1.</span> <span class="nav-text">Spring的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">工厂模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC-IoC"><span class="nav-number">3.</span> <span class="nav-text">控制反转(IoC)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IoC%E5%8C%85%E6%8B%AC%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E5%92%8C%E4%BE%9D%E8%B5%96%E6%9F%A5%E6%89%BE%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F-%E9%87%8D%E7%82%B9"><span class="nav-number">3.1.</span> <span class="nav-text">IoC包括依赖注入和依赖查找两种方式(重点)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApplicationContext-%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="nav-number">3.2.</span> <span class="nav-text">ApplicationContext 接口的实现类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="nav-number">4.</span> <span class="nav-text">常用注解</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
